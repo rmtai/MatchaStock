@@ -39,6 +39,7 @@
             android:drawableStart="@drawable/custom_username_icon"
             android:drawablePadding="12dp"
             android:ems="10"
+
             android:hint="@string/username"
             android:textColor="@color/second_color"
             android:textColorHint="@color/second_color" />
