@@ -40,7 +40,6 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/username"
-            android:inputType="textPassword"
             android:textColor="@color/second_color"
             android:textColorHint="@color/second_color" />
     </com.google.android.material.textfield.TextInputLayout>
