@@ -1,13 +1,19 @@
 <resources>
     <string name="app_name">MatchaStock</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
 
-    <string name = "login">Iniciar Sesión</string>
-    <string name = "username">Usuario</string>
-    <string name = "password">Contraseña</string>
-    <string name = "btn_login">Iniciar sesión</string>
-    <string name = "account">¿Aún no tienes una cuenta?</string>
-    <string name = "register"><u>Regístrate aquí</u></string>
+
+    <string name="login">Iniciar Sesión</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="account">¿Aún no tienes una cuenta?</string>
+    <string name="account2">¿Ya tienes una cuenta?</string>
+    <string name="register"><u>Regístrate aquí</u></string>
+    <string name="login2"><u>Iniciar Sesión aquí</u></string>
+    <string name="sign_up">Registrarse</string>
+    <string name="name">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="email">Email</string>
 
 </resources>
