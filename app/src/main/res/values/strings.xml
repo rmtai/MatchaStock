@@ -6,6 +6,8 @@
     <string name = "login">Iniciar Sesión</string>
     <string name = "username">Usuario</string>
     <string name = "password">Contraseña</string>
-
+    <string name = "btn_login">Iniciar sesión</string>
+    <string name = "account">¿Aún no tienes una cuenta?</string>
+    <string name = "register"><u>Regístrate aquí</u></string>
 
 </resources>
