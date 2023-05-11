@@ -27,8 +27,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
         android:layout_gravity="center"
+        android:layout_margin="25dp"
         android:layout_marginTop="30dp"
         app:boxStrokeColor="@color/second_color">
 
@@ -47,8 +47,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="350dp"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="25dp"
         android:layout_marginTop="30dp"
         app:boxStrokeColor="@color/second_color"
@@ -69,29 +69,31 @@
 
 
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
+        android:backgroundTint="@color/btn_color"
         android:text="@string/btn_login"
-        android:textSize="20sp"
-        android:backgroundTint="@color/btn_color"/>
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/account"
-        android:gravity="center"
         android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="@string/account"
         android:textColor="@color/white"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/tvRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:gravity="center"
         android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/register"
         android:textColor="@color/second_color"
         android:textSize="15sp" />
 </LinearLayout>
