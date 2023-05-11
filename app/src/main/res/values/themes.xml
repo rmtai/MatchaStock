@@ -3,7 +3,13 @@
     <style name="Base.Theme.MatchaStock" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
     </style>
 
     <style name="Theme.MatchaStock" parent="Base.Theme.MatchaStock" />
+
+    <style name="MyBottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
+    </style>
+
 </resources>

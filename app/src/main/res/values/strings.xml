@@ -15,7 +15,11 @@
     <string name="name">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="email">Email</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="nuevo">Nuevo</string>
+    <string name="home">Home</string>
+    <string name="inventario">Inventario</string>
+
 
 </resources>

@@ -34,9 +34,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:boxStrokeColor="@color/second_color"
-            android:layout_marginRight="10dp">
+            app:boxStrokeColor="@color/second_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
@@ -54,8 +54,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/second_color"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:boxStrokeColor="@color/second_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etApellido"
@@ -135,25 +135,26 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
+        android:backgroundTint="@color/btn_color"
         android:text="@string/sign_up"
-        android:textSize="20sp"
-        android:backgroundTint="@color/btn_color"/>
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/account2"
-        android:gravity="center"
         android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/account2"
         android:textColor="@color/white"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/tvLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login2"
-        android:gravity="center"
         android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/login2"
         android:textColor="@color/second_color"
         android:textSize="15sp" />
 
