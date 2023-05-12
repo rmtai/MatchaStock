@@ -8,8 +8,5 @@
 
     <style name="Theme.MatchaStock" parent="Base.Theme.MatchaStock" />
 
-    <style name="MyBottomNavigationTheme" parent="Theme.AppCompat.Light">
-        <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
-    </style>
 
 </resources>
