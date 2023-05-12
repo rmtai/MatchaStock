@@ -22,7 +22,7 @@
     <string name="profile">Perfil</string>
     <string name="inventario">Inventario</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_info">Andrés Castro</string>
 
 
 </resources>

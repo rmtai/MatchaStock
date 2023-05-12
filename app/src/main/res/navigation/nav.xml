@@ -30,4 +30,19 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.matchastock.WelcomeFragment"
         android:label="WelcomeFragment" />
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.matchastock.UserInfoFragment"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" />
+    <fragment
+        android:id="@+id/userEditFragment"
+        android:name="com.example.matchastock.UserEditFragment"
+        android:label="fragment_user_edit"
+        tools:layout="@layout/fragment_user_edit" />
+    <fragment
+        android:id="@+id/pswEditFragment"
+        android:name="com.example.matchastock.PswEditFragment"
+        android:label="fragment_psw_edit"
+        tools:layout="@layout/fragment_psw_edit" />
 </navigation>
