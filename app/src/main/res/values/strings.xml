@@ -33,5 +33,9 @@
     <string name="cambiar_contraseña">Cambiar contraseña</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
 
+    <string name="prod_eliminar">Eliminar producto</string>
+    <string name="editar_prod">Editar producto</string>
+    <string name="nuevo_producto">Nuevo producto</string>
+
 
 </resources>
