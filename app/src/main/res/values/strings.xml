@@ -28,6 +28,10 @@
     <string name="confirmar_contraseña">Confirmar contraseña</string>
     <string name="btn_actualizar">Actualizar</string>
     <string name="btn_cancelar">Cancelar</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="editar_perfil">Editar sesión</string>
+    <string name="cambiar_contraseña">Cambiar contraseña</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
 
 
 </resources>
