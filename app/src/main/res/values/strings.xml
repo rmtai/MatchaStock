@@ -16,6 +16,10 @@
     <string name="apellido">Apellido</string>
     <string name="email">Email</string>
 
+    <string name="descripcion">Descripcion</string>
+    <string name="id">ID</string>
+    <string name="cantidad">Cantidad</string>
+
 
     <string name="nuevo">Nuevo</string>
     <string name="home">Home</string>
