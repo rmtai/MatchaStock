@@ -8,11 +8,6 @@
     android:orientation="vertical"
     tools:context=".PswEditFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
-
     <ImageView
         android:id="@+id/ivWave"
         android:layout_width="0dp"
@@ -54,12 +49,13 @@
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etActPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="12dp"
                 android:ems="10"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/contraseña_actual"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
@@ -75,12 +71,13 @@
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etNuevaPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="12dp"
                 android:ems="10"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/nueva_contraseña"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
@@ -96,12 +93,13 @@
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etConfPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="12dp"
                 android:ems="10"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/confirmar_contraseña"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
