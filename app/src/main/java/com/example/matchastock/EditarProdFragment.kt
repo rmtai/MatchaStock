@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class NuevoFragment : Fragment() {
+class EditarProdFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -27,15 +28,13 @@ class NuevoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nuevo, container, false)
+        return inflater.inflate(R.layout.fragment_editar_prod, container, false)
     }
 
     companion object {
 
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            NuevoFragment().apply {
+            EditarProdFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
