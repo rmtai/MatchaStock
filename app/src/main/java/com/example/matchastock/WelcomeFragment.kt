@@ -26,6 +26,10 @@ class WelcomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentWelcomeBinding.inflate(inflater, container, false)
 
+        binding.btnEnter.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_homeFragment)
+        }
+
         return binding.root
     }
 
