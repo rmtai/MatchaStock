@@ -23,6 +23,11 @@
     <string name="inventario">Inventario</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="user_info">Andrés Castro</string>
+    <string name="contraseña_actual">Contraseña actual</string>
+    <string name="nueva_contraseña">Nueva contraseña</string>
+    <string name="confirmar_contraseña">Confirmar contraseña</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="btn_cancelar">Cancelar</string>
 
 
 </resources>
