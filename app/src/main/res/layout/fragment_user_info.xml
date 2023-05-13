@@ -80,7 +80,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvEditarPerfil"
-            android:layout_width="180dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
