@@ -30,4 +30,40 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.matchastock.WelcomeFragment"
         android:label="WelcomeFragment" />
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.matchastock.UserInfoFragment"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_pswEditFragment"
+            app:destination="@id/pswEditFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userEditFragment"
+        android:name="com.example.matchastock.UserEditFragment"
+        android:label="fragment_user_edit"
+        tools:layout="@layout/fragment_user_edit" >
+        <action
+            android:id="@+id/action_userEditFragment_to_userInfoFragment2"
+            app:destination="@id/userInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pswEditFragment"
+        android:name="com.example.matchastock.PswEditFragment"
+        android:label="fragment_psw_edit"
+        tools:layout="@layout/fragment_psw_edit" >
+        <action
+            android:id="@+id/action_pswEditFragment_to_userInfoFragment2"
+            app:destination="@id/userInfoFragment" />
+    </fragment>
 </navigation>
