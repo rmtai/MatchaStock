@@ -10,7 +10,7 @@ import com.example.matchastock.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private lateinit var binding : FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,16 +24,24 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
-        }
-
-        binding.tvRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
-        }
         return binding.root
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.btnLogin.setOnClickListener {
+
+            var usuario = binding.etUsername.text.toString().trim()
+            var contra = binding.etPassword.text.toString().trim()
+            validar(usuario, contra)
+        }
+    }
+
+    fun validar(username: String, password: String) {
+        if (username == "Admin" && password == "Admin123") {
+            findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
+        }
+    }
 }
