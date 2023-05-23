@@ -40,6 +40,7 @@
     <string name="prod_eliminar">Eliminar producto</string>
     <string name="editar_prod">Editar producto</string>
     <string name="nuevo_producto">Nuevo producto</string>
+    <string name="add_prod">Añadir nuevo producto</string>
 
 
 </resources>
