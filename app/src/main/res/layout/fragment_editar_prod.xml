@@ -46,6 +46,7 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/name"
+            android:inputType="text"
             android:textColor="@color/second_color"
             android:textColorHint="@color/second_color" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,7 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/descripcion"
+            android:inputType="text"
             android:textColor="@color/second_color"
             android:textColorHint="@color/second_color" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,6 +84,7 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="@string/cantidad"
+            android:inputType="number"
             android:textColor="@color/second_color"
             android:textColorHint="@color/second_color" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,8 +93,8 @@
         android:id="@+id/ivIcono"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_margin="10dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/procesamiento_de_imagenes"
