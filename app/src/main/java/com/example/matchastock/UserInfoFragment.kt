@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.matchastock.databinding.FragmentSignUpBinding
 import com.example.matchastock.databinding.FragmentUserInfoBinding
@@ -25,6 +26,12 @@ class UserInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentUserInfoBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.cvEditarPerfil.setOnClickListener{
             findNavController().navigate(R.id.action_userInfoFragment_to_userEditFragment)
         }
@@ -41,8 +48,20 @@ class UserInfoFragment : Fragment() {
             findNavController().navigate(R.id.action_userInfoFragment_to_signUpFragment)
         }
 
-        return binding.root
-    }
+        binding.bottomNav.setOnItemReselectedListener { item ->
+            when (item.itemId){
+                R.id.btnHome -> {
+                    Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
+                }
+                R.id.btnPerfil -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_userInfoFragment)
+                }
+                R.id.btnInventario -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
+                }
 
+            }
+        }
+    }
 
 }
