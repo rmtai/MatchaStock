@@ -16,6 +16,10 @@
     <string name="apellido">Apellido</string>
     <string name="email">Email</string>
 
+    <string name="descripcion">Descripcion</string>
+    <string name="id">ID</string>
+    <string name="cantidad">Cantidad</string>
+
 
     <string name="nuevo">Nuevo</string>
     <string name="home">Home</string>
@@ -32,6 +36,11 @@
     <string name="editar_perfil">Editar perfil</string>
     <string name="cambiar_contraseña">Cambiar contraseña</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
+
+    <string name="prod_eliminar">Eliminar producto</string>
+    <string name="editar_prod">Editar producto</string>
+    <string name="nuevo_producto">Nuevo producto</string>
+    <string name="add_prod">Añadir nuevo producto</string>
 
 
 </resources>

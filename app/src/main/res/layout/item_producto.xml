@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="146dp"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/card_bg"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/titlelessmatcha" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProdName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/second_color"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:text="Producto" />
+
+            <TextView
+                android:id="@+id/tvDescProd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/second_color"
+                android:textSize="18sp"
+                tools:text="Descripcion del producto" />
+
+            <TextView
+                android:id="@+id/tvCantProd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/second_color"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:text="Cantidad" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="26dp"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btnEditarProd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/edit_24"
+                android:contentDescription="@string/editar_prod" />
+
+            <ImageButton
+                android:id="@+id/btnEliminarProd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_delete"
+                android:contentDescription="@string/prod_eliminar" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

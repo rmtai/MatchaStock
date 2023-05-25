@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".NuevoFragment">
+
+    <ImageView
+        android:id="@+id/ivWave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/wave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:gravity="center"
+        android:text="Editar Producto"
+        android:textColor="@color/white"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        app:boxStrokeColor="@color/second_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:textColor="@color/second_color"
+            android:textColorHint="@color/second_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        app:boxStrokeColor="@color/second_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/descripcion"
+            android:inputType="text"
+            android:textColor="@color/second_color"
+            android:textColorHint="@color/second_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        app:boxStrokeColor="@color/second_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/cantidad"
+            android:inputType="number"
+            android:textColor="@color/second_color"
+            android:textColorHint="@color/second_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ivIcono"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/procesamiento_de_imagenes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/btn_color"
+        android:text="Guardar"
+        android:textSize="20sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/card_bg"
+        app:itemIconTint="@color/second_color"
+        app:itemTextColor="@color/second_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

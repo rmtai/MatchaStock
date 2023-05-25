@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.matchastock.databinding.FragmentHomeBinding
+import com.example.matchastock.databinding.FragmentNuevoBinding
+
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 
-class HomeFragment : Fragment() {
+class NuevoFragment : Fragment() {
 
-    private lateinit var binding : FragmentHomeBinding
-
+    private lateinit var binding: FragmentNuevoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,37 +27,31 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentNuevoBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.cvNuevo.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_nuevoFragment)
-        }
-
-        binding.cvInventario.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
-        }
-
         binding.bottomNav.setOnItemReselectedListener { item ->
-            when (item.itemId){
+            when (item.itemId) {
                 R.id.btnHome -> {
-                    Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_nuevoFragment_to_homeFragment)
                 }
+
                 R.id.btnPerfil -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_userInfoFragment)
+                    findNavController().navigate(R.id.action_nuevoFragment_to_userInfoFragment)
                 }
+
                 R.id.btnInventario -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
+                    findNavController().navigate(R.id.action_nuevoFragment_to_inventoryFragment)
                 }
 
             }
+
         }
-
     }
-
 }
