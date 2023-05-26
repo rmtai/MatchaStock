@@ -5,20 +5,36 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.IOException
-import java.text.Normalizer.Form
 
 class UsuarioController(private val client: OkHttpClient) {
+
+
+    interface OnUsuarioRegistradoListener {
+        fun onUsuarioRegistradoExitosamente()
+        fun onErrorRegistro(mensaje: String)
+    }
+
+    interface OnUsuarioLoginListener {
+        fun onUsuarioLoginExitoso()
+        fun onErrorLogin(mensaje: String)
+    }
 
     companion object {
         private const val URL_API = "http://192.168.0.11/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
+        private const val LOGIN_URL = "${URL_API}login.php"
+
     }
 
-    fun agregarUsuario(usuario: User) {
+    fun agregarUsuario(usuario: User, listener: OnUsuarioRegistradoListener) {
         val formBody: FormBody = FormBody.Builder()
             .add("nombre", usuario.nombre)
             .add("apellido", usuario.apellido)
@@ -42,9 +58,11 @@ class UsuarioController(private val client: OkHttpClient) {
                     val respuesta = response.body?.string()
                     println(respuesta)
                     response.close()
-
+                    listener.onUsuarioRegistradoExitosamente()
                 } else {
-                    println("Error en la respuesta del servidor")
+                    val error = "Error en la respuesta del servidor"
+                    println(error)
+                    listener.onErrorRegistro(error)
                 }
             }
         })
@@ -80,7 +98,7 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    suspend fun mostrarUsuarios(): List<User> = withContext(Dispatchers.IO) {
+    suspend fun mostrarUsuario(): List<User> = withContext(Dispatchers.IO) {
         val usuarios = mutableListOf<User>()
 
         val request = Request.Builder()
@@ -111,6 +129,56 @@ class UsuarioController(private val client: OkHttpClient) {
 
         usuarios
     }
+
+    fun login(username: String, passwordUser: String, listener: OnUsuarioLoginListener) {
+
+        val formBody = FormBody.Builder()
+            .add("username", username)
+            .add("passwordUser", passwordUser)
+            .build()
+
+        val request: Request = Request.Builder()
+            .url(LOGIN_URL)
+            .post(formBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                listener.onErrorLogin("Error en la petición HTTP: ${e.message}")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val responseData = response.body?.string()
+
+                    try {
+                        val jsonResponse = JSONObject(responseData)
+
+                        val success = jsonResponse.getBoolean("success")
+                        val message = jsonResponse.getString("message")
+
+                        if (success) {
+                            // Inicio de sesión exitoso
+                            listener.onUsuarioLoginExitoso()
+                        } else {
+                            // Contraseña incorrecta o usuario no encontrado
+                            listener.onErrorLogin(message)
+                        }
+                    } catch (e: JSONException) {
+                        // Error al analizar el JSON
+                        listener.onErrorLogin("Error al analizar la respuesta del servidor")
+                    }
+                } else {
+                    // Error en la respuesta del servidor
+                    listener.onErrorLogin("Error en la respuesta del servidor")
+                }
+
+                response.close()
+            }
+
+        })
+    }
+
 
     // Función de extensión para realizar una llamada asíncrona y obtener una respuesta
     private suspend fun Call.await(): Response {
