@@ -144,16 +144,18 @@ class UsuarioController(private val client: OkHttpClient) {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener.onErrorLogin("Error en la petición HTTP: ${e.message}")
+                // Error en la petición HTTP
+                val errorMessage = "Error en la petición HTTP: ${e.message}"
+                println(errorMessage)
+                listener.onErrorLogin(errorMessage)
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val responseData = response.body?.string()
+                val responseData = response.body?.string()
 
+                if (response.isSuccessful && responseData != null) {
                     try {
                         val jsonResponse = JSONObject(responseData)
-
                         val success = jsonResponse.getBoolean("success")
                         val message = jsonResponse.getString("message")
 
@@ -162,22 +164,27 @@ class UsuarioController(private val client: OkHttpClient) {
                             listener.onUsuarioLoginExitoso()
                         } else {
                             // Contraseña incorrecta o usuario no encontrado
+                            println("Error de inicio de sesión: $message")
                             listener.onErrorLogin(message)
                         }
                     } catch (e: JSONException) {
                         // Error al analizar el JSON
-                        listener.onErrorLogin("Error al analizar la respuesta del servidor")
+                        val errorMessage = "Error al analizar la respuesta del servidor: ${e.message}"
+                        println(errorMessage)
+                        listener.onErrorLogin(errorMessage)
                     }
                 } else {
                     // Error en la respuesta del servidor
-                    listener.onErrorLogin("Error en la respuesta del servidor")
+                    val errorMessage = "Error en la respuesta del servidor"
+                    println(errorMessage)
+                    listener.onErrorLogin(errorMessage)
                 }
 
                 response.close()
             }
-
         })
     }
+
 
 
     // Función de extensión para realizar una llamada asíncrona y obtener una respuesta
