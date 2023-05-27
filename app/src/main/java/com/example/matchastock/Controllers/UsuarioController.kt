@@ -26,7 +26,7 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.1.11/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.0.11/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
