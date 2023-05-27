@@ -10,12 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.matchastock.Controllers.UsuarioController
 import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentSignUpBinding
+import okhttp3.OkHttpClient
 
 
-class SignUpFragment : Fragment(),UsuarioController.OnUsuarioRegistradoListener {
+class SignUpFragment : Fragment(), UsuarioController.OnUsuarioRegistradoListener {
 
-    private lateinit var  binding : FragmentSignUpBinding
-    private lateinit var usuarioController:UsuarioController
+    private lateinit var binding: FragmentSignUpBinding
+    private lateinit var usuarioController: UsuarioController
 
 
     override fun onCreateView(
@@ -24,13 +25,15 @@ class SignUpFragment : Fragment(),UsuarioController.OnUsuarioRegistradoListener 
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        usuarioController = UsuarioController(OkHttpClient())
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvLogin.setOnClickListener{
+        binding.tvLogin.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
         binding.btnRegister.setOnClickListener {
@@ -40,7 +43,7 @@ class SignUpFragment : Fragment(),UsuarioController.OnUsuarioRegistradoListener 
             val passwordUser = binding.etPsw.text.toString()
             val email = binding.etEmail.text.toString()
 
-            if ( nombre.isEmpty() || apellido.isEmpty() || username.isEmpty()|| passwordUser.isEmpty() || email.isEmpty()) {
+            if (nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || passwordUser.isEmpty() || email.isEmpty()) {
                 // Mostrar mensaje de error indicando que todos los campos deben estar completos.
                 Toast.makeText(
                     requireContext(),
@@ -62,7 +65,7 @@ class SignUpFragment : Fragment(),UsuarioController.OnUsuarioRegistradoListener 
             val user = User(0, nombre, apellido, username, passwordUser, email)
             register(user)
         }
-        }
+    }
 
     private fun register(usuario: User) {
         usuarioController.agregarUsuario(usuario, this)
@@ -71,18 +74,18 @@ class SignUpFragment : Fragment(),UsuarioController.OnUsuarioRegistradoListener 
     }
 
     override fun onUsuarioRegistradoExitosamente() {
-        val mensaje="El usuario se ha registrado correctamente."
+        val mensaje = "El usuario se ha registrado correctamente."
 
         requireActivity().runOnUiThread {
-            Toast.makeText(context,mensaje,Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onErrorRegistro(mensaje: String) {
-        val mensaje="Ocurrio un problema al registrar el usuario."
+        val mensaje = "Ocurrio un problema al registrar el usuario."
 
         requireActivity().runOnUiThread {
-            Toast.makeText(context,mensaje,Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
 }
