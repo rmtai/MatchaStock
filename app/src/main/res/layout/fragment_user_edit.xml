@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="-60dp"
-            android:layout_marginTop="-63dp"
+            android:layout_marginTop="-62dp"
             app:boxStrokeColor="@color/second_color" >
 
             <EditText
@@ -122,12 +122,31 @@
                 android:textColorHint="@color/second_color" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            app:boxStrokeColor="@color/second_color" >
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/nueva_contraseña"
+                android:textColor="@color/second_color"
+                android:textColorHint="@color/second_color" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btnActUser"
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="1dp"
             android:backgroundTint="@color/btn_color"
             android:text="@string/btn_actualizar"
             android:textSize="20sp" />

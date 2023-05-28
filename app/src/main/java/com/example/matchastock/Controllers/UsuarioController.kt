@@ -26,11 +26,12 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.0.11/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.1.5/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
         private const val LOGIN_URL = "${URL_API}login.php"
+        var currentUser : User? = null
 
     }
 
@@ -68,11 +69,12 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(nombre: String, apellido: String, username: String, passwordUser: String) {
+    fun editarUsuario(nombre: String, apellido: String, username: String,email: String, passwordUser: String) {
         val formBody = FormBody.Builder()
             .add("nombre", nombre)
             .add("apellido", apellido)
             .add("username", username)
+            .add("email", email)
             .add("passwordUser", passwordUser)
             .build()
 
@@ -161,6 +163,12 @@ class UsuarioController(private val client: OkHttpClient) {
 
                         if (success) {
                             // Inicio de sesión exitoso
+                            UsuarioController.currentUser = User(idUser = jsonResponse.getInt("idUser"),
+                            nombre = jsonResponse.getString("nombre"),
+                            apellido = jsonResponse.getString("apellido"),
+                            username = jsonResponse.getString("username"),
+                            passwordUser = jsonResponse.getString("passwordUser"),
+                            email = jsonResponse.getString("email"))
                             listener.onUsuarioLoginExitoso()
                         } else {
                             // Contraseña incorrecta o usuario no encontrado
