@@ -9,11 +9,6 @@
     tools:context=".UserEditFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
-
     <ImageView
         android:id="@+id/ivWave"
         android:layout_width="0dp"
@@ -54,7 +49,7 @@
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/second_color" >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
@@ -73,7 +68,7 @@
             android:layout_marginTop="-62dp"
             app:boxStrokeColor="@color/second_color" >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etApell"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
@@ -92,7 +87,7 @@
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/second_color" >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -111,7 +106,7 @@
             android:layout_marginTop="10dp"
             app:boxStrokeColor="@color/second_color" >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -128,15 +123,17 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
-            app:boxStrokeColor="@color/second_color" >
+            app:boxStrokeColor="@color/second_color"
+            app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="@string/nueva_contraseña"
+                android:inputType="textPassword"
                 android:textColor="@color/second_color"
                 android:textColorHint="@color/second_color" />
         </com.google.android.material.textfield.TextInputLayout>
