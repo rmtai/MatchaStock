@@ -1,5 +1,6 @@
 package com.example.matchastock.Controllers
 
+import android.provider.ContactsContract.CommonDataKinds.Email
 import com.example.matchastock.Entities.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -25,8 +26,13 @@ class UsuarioController(private val client: OkHttpClient) {
         fun onErrorLogin(mensaje: String)
     }
 
+    interface OnUsuarioEditListener {
+        fun onUsuarioEditadoExitoso()
+        fun onErrorEditar(mensaje: String)
+    }
+
     companion object {
-        private const val URL_API = "http://192.168.0.11/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.1.22/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
@@ -68,11 +74,12 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(nombre: String, apellido: String, username: String, passwordUser: String) {
+    fun editarUsuario(nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: UsuarioController.OnUsuarioEditListener) {
         val formBody = FormBody.Builder()
             .add("nombre", nombre)
             .add("apellido", apellido)
             .add("username", username)
+            .add("email", email)
             .add("passwordUser", passwordUser)
             .build()
 
@@ -84,6 +91,8 @@ class UsuarioController(private val client: OkHttpClient) {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 println("Error en la petición HTTP: ${e.message}")
+                // Manejar el error y notificar al fragmento
+                listener.onErrorEditar("Ocurrió un error en la petición HTTP")
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -91,8 +100,13 @@ class UsuarioController(private val client: OkHttpClient) {
                     val respuesta = response.body?.string()
                     println(respuesta)
                     response.close()
+                    // Notificar al fragmento que la edición fue exitosa
+                    listener.onUsuarioEditadoExitoso()
                 } else {
-                    println("Error en la respuesta del servidor")
+                    val error = "Error en la respuesta del servidor"
+                    println(error)
+                    // Manejar el error y notificar al fragmento
+                    listener.onErrorEditar(error)
                 }
             }
         })
