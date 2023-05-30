@@ -1,17 +1,11 @@
 <?php
+$hostname = 'localhost';
+$database = 'matchastockdb';
+$username = 'root';
+$password = '';
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "matchastockdb";
-
-$mysql = new mysqli($host, $username, $password, $database);
-
-// Verificar si ocurrió un error durante la conexión
-if ($mysql->connect_error) {
-    die("Error de conexión: " . $mysql->connect_error);
-} else {
-    echo "Conexión exitosa";
+$mysql = new mysqli($hostname, $username, $password, $database);
+if ($mysql->connect_errno) {
+    die('Error de conexión a la base de datos: ' . $mysql->connect_error);
 }
-
 ?>
