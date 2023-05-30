@@ -74,8 +74,9 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: UsuarioController.OnUsuarioEditListener) {
+    fun editarUsuario(idUsuario: Int, nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: UsuarioController.OnUsuarioEditListener) {
         val formBody = FormBody.Builder()
+            .add("idUser", idUsuario.toString())
             .add("nombre", nombre)
             .add("apellido", apellido)
             .add("username", username)

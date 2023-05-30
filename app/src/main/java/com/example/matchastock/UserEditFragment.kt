@@ -40,6 +40,7 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
             findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
         }
         binding.btnActUser.setOnClickListener {
+          //  val idUsuario = obtenerIdUsuario()
             val nombre = binding.etName.text.toString()
             val apellido = binding.etApell.text.toString()
             val username = binding.etUsername.text.toString()
@@ -64,7 +65,7 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
                 ).show()
                 return@setOnClickListener
             }
-            usuarioController.editarUsuario(nombre, apellido, username, email, passwordUser, this)
+        //    usuarioController.editarUsuario(idUsuario, nombre, apellido, username, email, passwordUser, this)
         }
 
 
