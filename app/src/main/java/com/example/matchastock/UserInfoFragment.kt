@@ -51,17 +51,25 @@ class UserInfoFragment : Fragment() {
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
                 R.id.btnHome -> {
-                    Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_userInfoFragment_to_homeFragment)
+
                 }
                 R.id.btnPerfil -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_userInfoFragment)
+                    Toast.makeText(context, "Perfil", Toast.LENGTH_SHORT).show()
+                    binding.bottomNav.menu.findItem(R.id.btnPerfil)?.isChecked = true
                 }
                 R.id.btnInventario -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
+                    findNavController().navigate(R.id.action_userInfoFragment_to_inventoryFragment)
                 }
 
             }
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bottomNav.menu.findItem(R.id.btnPerfil)?.isChecked = true
     }
 
 }

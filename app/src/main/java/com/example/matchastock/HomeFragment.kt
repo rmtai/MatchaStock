@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.matchastock.databinding.FragmentHomeBinding
 
 
@@ -45,6 +46,7 @@ class HomeFragment : Fragment() {
             when (item.itemId){
                 R.id.btnHome -> {
                     Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
+
                 }
                 R.id.btnPerfil -> {
                     findNavController().navigate(R.id.action_homeFragment_to_userInfoFragment)
@@ -52,10 +54,17 @@ class HomeFragment : Fragment() {
                 R.id.btnInventario -> {
                     findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
                 }
-
             }
+            val navController = findNavController()
+            NavigationUI.setupWithNavController(binding.bottomNav, navController)
+
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bottomNav.menu.findItem(R.id.btnHome)?.isChecked = true
     }
 
 }
