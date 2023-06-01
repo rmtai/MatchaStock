@@ -8,18 +8,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.matchastock.Adapter.ProdEliminadoAdapter
+import com.example.matchastock.Adapter.ProductoAdapter
+import com.example.matchastock.Controllers.ProductoController
 import com.example.matchastock.databinding.FragmentEliminadoProdBinding
+import okhttp3.OkHttpClient
 
 
 class EliminadoProdFragment : Fragment() {
 
     private lateinit var binding: FragmentEliminadoProdBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
+    private lateinit var productoController: ProductoController
+    private lateinit var adapter: ProdEliminadoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +28,25 @@ class EliminadoProdFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEliminadoProdBinding.inflate(inflater, container, false)
+        productoController = ProductoController(OkHttpClient())
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val manager = LinearLayoutManager(requireContext())
+
+        adapter = ProdEliminadoAdapter(emptyList())
+        binding.rvEliminadoProd.layoutManager = manager
+        binding.rvEliminadoProd.adapter = adapter
+
+
+        // Obtener y mostrar productos eliminados
+        val productosEliminados = productoController.mostrarProductosEliminados()
+        adapter.updateData(productosEliminados)
+        adapter.notifyDataSetChanged()
 
 
         binding.bottomNav.setOnItemReselectedListener { item ->
