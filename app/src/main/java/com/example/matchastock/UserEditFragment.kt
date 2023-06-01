@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.matchastock.Controllers.UsuarioController
+import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentUserEditBinding
 import com.example.matchastock.databinding.FragmentUserInfoBinding
 import okhttp3.OkHttpClient
@@ -40,7 +41,6 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
             findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
         }
         binding.btnActUser.setOnClickListener {
-          //  val idUsuario = obtenerIdUsuario()
             val nombre = binding.etName.text.toString()
             val apellido = binding.etApell.text.toString()
             val username = binding.etUsername.text.toString()
@@ -65,14 +65,13 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
                 ).show()
                 return@setOnClickListener
             }
-        //    usuarioController.editarUsuario(idUsuario, nombre, apellido, username, email, passwordUser, this)
+            editUser(nombre, apellido, username, email, passwordUser)
         }
 
 
         binding.btnCancelUser.setOnClickListener{
             findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment2)
         }
-
 
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
@@ -90,14 +89,20 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
         }
     }
 
+    private fun editUser(nombre: String, apellido: String, username: String, email: String, passwordUser: String) {
+        usuarioController.editarUsuario(nombre, apellido, username, email, passwordUser, this)
+    }
+
     override fun onUsuarioEditadoExitoso() {
         val mensaje = "Datos editados correctamente"
         requireActivity().runOnUiThread{
             Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
         }
     }
 
     override fun onErrorEditar(mensaje: String) {
+        val mensaje = "Ocurrio un error al intentar editar, intente luego"
         requireActivity().runOnUiThread {
             Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
         }

@@ -74,9 +74,8 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(idUsuario: Int, nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: UsuarioController.OnUsuarioEditListener) {
+    fun editarUsuario(nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: UsuarioController.OnUsuarioEditListener) {
         val formBody = FormBody.Builder()
-            .add("idUser", idUsuario.toString())
             .add("nombre", nombre)
             .add("apellido", apellido)
             .add("username", username)
@@ -87,6 +86,7 @@ class UsuarioController(private val client: OkHttpClient) {
         val request: Request = Request.Builder()
             .url(EDITAR_URL)
             .post(formBody)
+            .header("Content-Type", "application/x-www-form-urlencoded")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -132,14 +132,14 @@ class UsuarioController(private val client: OkHttpClient) {
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
 
-            val idUsuario = jsonObject.getInt("idUser")
+            val idUser = jsonObject.getInt("idUser")
             val nombre = jsonObject.getString("nombre")
             val apellido = jsonObject.getString("apellido")
             val usuario = jsonObject.getString("username")
             val password = jsonObject.getString("passwordUser")
             val email = jsonObject.getString("email")
 
-            usuarios.add(User(idUsuario, nombre, apellido, usuario, password, email))
+            usuarios.add(User(idUser, nombre, apellido, usuario, password, email))
         }
 
         usuarios
