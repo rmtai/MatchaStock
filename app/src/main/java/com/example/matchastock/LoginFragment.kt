@@ -60,9 +60,9 @@ class LoginFragment : Fragment(), UsuarioController.OnUsuarioLoginListener {
     override fun onErrorLogin(mensaje: String) {
         // Hubo un error en el inicio de sesión
 
-        val mensaje = "No se pudo iniciar sesion, intente de nuevo."
+        val mensaje = "Usuario o contraseña incorrectos. Pruebe nuevamente."
         requireActivity().runOnUiThread {
-            Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show()
         }
     }
 }
