@@ -20,7 +20,8 @@ if (isset($_POST['username']) && isset($_POST['passwordUser'])) {
                 'data' => $row
             );
 
-            $_SESSION['username'] = $username;
+            
+			$_SESSION['idUser'] = $row['idUser'];
         } else {
             $response = array(
                 'success' => false,
