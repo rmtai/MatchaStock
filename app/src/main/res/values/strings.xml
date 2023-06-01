@@ -22,10 +22,12 @@
 
 
     <string name="nuevo">Nuevo</string>
+    <string name="eliminado">Retirados</string>
+
     <string name="home">Home</string>
     <string name="profile">Perfil</string>
     <string name="inventario">Inventario</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="user_info">Andrés Castro</string>
     <string name="contraseña_actual">Contraseña actual</string>
     <string name="nueva_contraseña">Nueva contraseña</string>
