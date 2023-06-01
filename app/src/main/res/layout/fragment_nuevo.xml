@@ -108,7 +108,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/ivIcono"
+        android:id="@+id/ivImg"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="5dp"
@@ -121,6 +121,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btnSelectImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Imagen" />
+    <Button
+        android:id="@+id/btnGuardar"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
