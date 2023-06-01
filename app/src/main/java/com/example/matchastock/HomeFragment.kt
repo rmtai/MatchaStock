@@ -42,6 +42,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
         }
 
+        binding.cvEliminadoProd.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_eliminadoProdFragment)
+        }
+
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
                 R.id.btnHome -> {

@@ -108,6 +108,9 @@
         <action
             android:id="@+id/action_homeFragment_to_userInfoFragment"
             app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_eliminadoProdFragment"
+            app:destination="@id/eliminadoProdFragment" />
     </fragment>
     <fragment
         android:id="@+id/nuevoFragment"
@@ -135,5 +138,23 @@
         <action
             android:id="@+id/action_inventoryFragment_to_userInfoFragment"
             app:destination="@id/userInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eliminadoProdFragment"
+        android:name="com.example.matchastock.EliminadoProdFragment"
+        android:label="fragment_eliminado_prod"
+        tools:layout="@layout/fragment_eliminado_prod" >
+        <action
+            android:id="@+id/action_eliminadoProdFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_eliminadoProdFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_eliminadoProdFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_eliminadoProdFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
