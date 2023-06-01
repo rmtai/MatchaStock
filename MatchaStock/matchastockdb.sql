@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2023 a las 05:24:33
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.0.19
+-- Tiempo de generación: 01-06-2023 a las 06:46:33
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,18 +32,19 @@ CREATE TABLE `producto` (
   `nombreProd` varchar(25) NOT NULL,
   `descripcionProd` varchar(50) NOT NULL,
   `cantidadProd` int(100) NOT NULL,
+  `imagen` longblob NOT NULL,
   `estado` int(11) NOT NULL,
   `idUser` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idItem`, `nombreProd`, `descripcionProd`, `cantidadProd`, `estado`, `idUser`) VALUES
-(2, 'Te verde', 'Te verde medicinal y relajante', 20, 1, 2),
-(3, 'Cafe negro', 'Un buen cafe negro para los amantes', 76, 2, 4),
-(4, 'jhvhgc', 'hbxhjjb', 76876, 3, 2);
+INSERT INTO `producto` (`idItem`, `nombreProd`, `descripcionProd`, `cantidadProd`, `imagen`, `estado`, `idUser`) VALUES
+(2, 'Te verde', 'Te verde medicinal y relajante', 20, '', 1, 2),
+(3, 'Cafe negro', 'Un buen cafe negro para los amantes', 76, '', 2, 4),
+(4, 'jhvhgc', 'hbxhjjb', 76876, '', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -58,7 +59,7 @@ CREATE TABLE `usuario` (
   `username` varchar(15) NOT NULL,
   `passwordUser` varchar(10) NOT NULL,
   `email` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -66,7 +67,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idUser`, `nombre`, `apellido`, `username`, `passwordUser`, `email`) VALUES
 (2, 'Blanca Tais', 'Rosales Martinez', 'BTais', '1234', 'blancatais09@gmail.com'),
-(4, 'Mabel', 'Garcia', 'gmabs', '1234', 'mabelgarcia13@gmail.com');
+(4, 'Mabel', 'Garcia', 'gmabs', '1234', 'mabelgarcia13@gmail.com'),
+(5, 'mabel', 'hernandez', 'garcia22', '123', 'mgarcia2022@gmail.com'),
+(6, 'Aryeris', 'Garcia', 'mabel22', '123', 'hmagel@gmail.com'),
+(7, 'Ashly', 'CAstillo', 'acastillo', '123', 'ashly@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -94,13 +98,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
