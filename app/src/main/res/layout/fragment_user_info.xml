@@ -53,7 +53,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
@@ -61,7 +61,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvCerrarSesion"
-                android:layout_width="208dp"
+                android:layout_width="315dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
@@ -69,10 +69,11 @@
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:layout_width="190dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="0dp"
+                    android:textAlignment="center"
                     android:text="@string/cerrar_sesion"
                     android:textColor="@color/second_color"
                     android:textSize="28sp"
@@ -81,7 +82,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvEditarPerfil"
-                android:layout_width="178dp"
+                android:layout_width="315dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -89,10 +90,11 @@
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="0dp"
+                    android:textAlignment="center"
                     android:text="@string/editar_perfil"
                     android:textColor="@color/second_color"
                     android:textSize="28sp"
@@ -101,7 +103,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvCambiarPsw"
-                android:layout_width="300dp"
+                android:layout_width="315dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -109,10 +111,11 @@
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:layout_width="290dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="0dp"
+                    android:textAlignment="center"
                     android:text="@string/cambiar_contraseña"
                     android:textColor="@color/second_color"
                     android:textSize="28sp"
@@ -121,7 +124,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvEliminarCuenta"
-                android:layout_width="235dp"
+                android:layout_width="315dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -129,10 +132,11 @@
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:layout_width="229dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="0dp"
+                    android:textAlignment="center"
                     android:text="@string/eliminar_cuenta"
                     android:textColor="@color/second_color"
                     android:textSize="28sp"

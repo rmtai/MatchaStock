@@ -23,7 +23,7 @@
     <ImageView
         android:id="@+id/ivMatcha"
         android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_height="170dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="-60dp"
         android:contentDescription="@string/app_name"
@@ -157,6 +157,14 @@
             android:backgroundTint="@color/btn_color"
             android:text="@string/btn_cancelar"
             android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:id="@+id/etIdUser"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnActUser"/>
 
     </LinearLayout>
 
