@@ -40,7 +40,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/card_bg"
+        android:backgroundTint="@color/btn_color"
         android:text="@string/btn_entrar"
         android:textSize="23sp" />
 </LinearLayout>
