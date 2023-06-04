@@ -9,5 +9,5 @@
         android:icon="@drawable/baseline_home_24"/>
     <item android:title="@string/inventario"
         android:id="@+id/btnInventario"
-        android:icon="@drawable/ic_caja"/>
+        android:icon="@drawable/ic_box"/>
 </menu>

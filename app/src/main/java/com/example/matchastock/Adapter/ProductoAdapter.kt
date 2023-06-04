@@ -1,5 +1,7 @@
 package com.example.matchastock.Adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,9 @@ import com.example.matchastock.Entities.Product
 import com.example.matchastock.R
 import com.example.matchastock.databinding.ItemProductoBinding
 
-class ProductoAdapter(private var productList: List<Product>): RecyclerView.Adapter<ProductoAdapter.ViewHolder>() {
+
+class ProductoAdapter(private var productList: List<Product>):
+    RecyclerView.Adapter<ProductoAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoAdapter.ViewHolder {
@@ -23,6 +27,14 @@ class ProductoAdapter(private var productList: List<Product>): RecyclerView.Adap
     }
 
     override fun getItemCount(): Int = productList.size
+
+    fun updateData(newProdList: List<Product>) {
+        productList = newProdList
+        Handler(Looper.getMainLooper()).post {
+            notifyDataSetChanged()
+        }
+
+    }
 
     inner class ViewHolder (view: View): RecyclerView.ViewHolder(view){
         val binding = ItemProductoBinding.bind(view)
