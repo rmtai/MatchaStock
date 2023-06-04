@@ -19,13 +19,21 @@ import java.io.IOException
 
 class ProductoController(private val client: OkHttpClient) {
 
-    interface OnProductoGuardadoListener{
+    interface OnProductoGuardadoListener {
         fun onProductoGuardadoExitosamente()
         fun onErrorGuardado(mensaje: String)
     }
 
+    interface OnProductoObtenidoListener {
+        fun onProductoObtenidoExitosamente()
+        fun onErrorObtenido(mensaje: String)
+        fun onProductoObtenido(productos: List<Product>)
+    }
+
+
+
     companion object {
-        private const val URL_API = "http://192.168.0.7/MatchaStock/Producto/"
+        private const val URL_API = "http://192.168.0.8/MatchaStock/Producto/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
@@ -37,7 +45,8 @@ class ProductoController(private val client: OkHttpClient) {
         val encodedBytes = android.util.Base64.decode(base64String, android.util.Base64.DEFAULT)
         return encodedBytes
     }
-    fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener){
+
+    fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener) {
         val imagenCodificada: String = Base64.encodeToString(producto.imagen, Base64.DEFAULT)
 
 
@@ -54,8 +63,8 @@ class ProductoController(private val client: OkHttpClient) {
             .post(formBody)
             .build()
 
-        client.newCall(request).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException){
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
                 val errorMessage = "Error en la petición HTTP: ${e.message}"
                 listener.onErrorGuardado(errorMessage)
             }
@@ -110,12 +119,66 @@ class ProductoController(private val client: OkHttpClient) {
                     val imagenBase64 = jsonObject.getString("imagen")
                     val imagen = decodeBase64(imagenBase64)
 
-                    productos.add(Product(idItem, nombreProd, descripcionProd,cantidadProd, imagen, estado, idUser))
+                    productos.add(
+                        Product(
+                            idItem,
+                            nombreProd,
+                            descripcionProd,
+                            cantidadProd,
+                            imagen,
+                            estado,
+                            idUser
+                        )
+                    )
                 }
             }
         }.join()
 
         productos
+    }
+
+    fun mostrarTodosLosProductos(listener: OnProductoObtenidoListener) {
+        val request = Request.Builder()
+            .url(MOSTRAR_URL)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val errorMessage = "Error en la petición HTTP: ${e.message}"
+                listener.onErrorObtenido(errorMessage)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val respuesta = response.body?.string()
+                    val jsonArray = JSONArray(respuesta)
+
+                    val productos = mutableListOf<Product>()
+
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+
+                        val idItem = jsonObject.getInt("idItem")
+                        val nombreProd = jsonObject.getString("nombreProd")
+                        val descripcionProd = jsonObject.getString("descripcionProd")
+                        val cantidadProd = jsonObject.getInt("cantidadProd")
+                        val estado = jsonObject.getInt("estado")
+                        val idUser = jsonObject.getInt("idUser")
+                        val imagenBase64 = jsonObject.optString("imagen")
+                        val imagen = if (imagenBase64.isNotEmpty()) decodeBase64(imagenBase64) else null
+
+                        productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, imagen, estado, idUser))
+                    }
+
+                  listener.onProductoObtenido(productos)
+                } else {
+                    val error = "Error en la respuesta del servidor"
+                    listener.onErrorObtenido(error)
+                }
+
+                response.close()
+            }
+        })
     }
 
 }
