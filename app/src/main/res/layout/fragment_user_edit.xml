@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,53 +8,50 @@
     android:orientation="vertical"
     tools:context=".UserEditFragment">
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
-
     <ImageView
         android:id="@+id/ivWave"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/wave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/svg" />
 
     <ImageView
         android:id="@+id/ivMatcha"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="112dp"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
         android:layout_marginTop="-60dp"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/titlelessmatcha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivWave" />
+        android:src="@mipmap/titlelessmatcha" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:gravity="center"
+        android:text="@string/edit_user"
+        android:textColor="@color/second_color"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="390dp"
-        android:orientation="vertical"
-        android:padding="19dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivMatcha">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="0dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            app:boxStrokeColor="@color/second_color" >
+            android:layout_marginEnd="10dp"
+            android:textColorHint="@color/second_color"
+            app:boxStrokeColor="@color/second_color">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
@@ -68,12 +65,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="-60dp"
-            android:layout_marginTop="-63dp"
-            app:boxStrokeColor="@color/second_color" >
+            android:layout_gravity="end"
+            android:layout_marginStart="10dp"
+            android:textColorHint="@color/second_color"
+            app:boxStrokeColor="@color/second_color">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etApell"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
@@ -84,43 +81,53 @@
                 android:textColorHint="@color/second_color" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            app:boxStrokeColor="@color/second_color" >
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:hint="@string/username"
-                android:textColor="@color/second_color"
-                android:textColorHint="@color/second_color" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/second_color"
+        app:boxStrokeColor="@color/second_color">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            app:boxStrokeColor="@color/second_color" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:textColor="@color/second_color" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:hint="@string/email"
-                android:textColor="@color/second_color"
-                android:textColorHint="@color/second_color" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/second_color"
+        app:boxStrokeColor="@color/second_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:textColor="@color/second_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnActUser"
@@ -128,6 +135,7 @@
             android:layout_height="50dp"
             android:layout_gravity="left"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/btn_color"
             android:text="@string/btn_actualizar"
             android:textSize="20sp" />
@@ -137,24 +145,29 @@
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
-            android:layout_marginTop="-50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/btn_color"
             android:text="@string/btn_cancelar"
             android:textSize="20sp" />
 
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/card_bg"
-        app:itemIconTint="@color/second_color"
-        app:itemTextColor="@color/second_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:background="@color/card_bg"
+            app:itemIconTint="@color/second_color"
+            app:itemTextColor="@color/second_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_nav" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+
