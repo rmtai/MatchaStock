@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/ivMatcha"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="-60dp"
         android:contentDescription="@string/app_name"
@@ -30,9 +30,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivWave" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/cambiar_contraseña"
+        android:textColor="@color/second_color"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/linear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMatcha" />
+
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="0dp"
         android:layout_height="390dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:padding="19dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
@@ -46,6 +61,7 @@
             android:layout_gravity="center"
             android:layout_margin="0dp"
             android:layout_marginTop="10dp"
+            android:textColorHint="@color/second_color"
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
@@ -53,9 +69,9 @@
                 android:id="@+id/etActPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/contraseña_actual"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
@@ -66,8 +82,8 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
             android:layout_marginTop="10dp"
+            android:textColorHint="@color/second_color"
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
@@ -75,9 +91,9 @@
                 android:id="@+id/etNuevaPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/nueva_contraseña"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
@@ -90,6 +106,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
+            android:textColorHint="@color/second_color"
             app:boxStrokeColor="@color/second_color"
             app:passwordToggleEnabled="true">
 
@@ -97,34 +114,44 @@
                 android:id="@+id/etConfPsw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableStart="@drawable/custom_lock_icon"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:drawableStart="@drawable/custom_lock_icon"
                 android:hint="@string/confirmar_contraseña"
                 android:inputType="textPassword"
                 android:textColor="@color/second_color"
                 android:textColorHint="@color/second_color" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnActPsw"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_gravity="left"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/btn_color"
-            android:text="@string/btn_actualizar"
-            android:textSize="20sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnCancelPsw"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="-50dp"
-            android:backgroundTint="@color/btn_color"
-            android:text="@string/btn_cancelar"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnActPsw"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/btn_color"
+                android:text="@string/btn_actualizar"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnCancelPsw"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/btn_color"
+                android:text="@string/btn_cancelar"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -138,7 +165,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
