@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.matchastock.databinding.FragmentSignUpBinding
 import com.example.matchastock.databinding.FragmentUserInfoBinding
 
@@ -47,6 +51,9 @@ class UserInfoFragment : Fragment() {
         binding.cvEliminarCuenta.setOnClickListener{
             findNavController().navigate(R.id.action_userInfoFragment_to_signUpFragment)
         }
+        binding.cvEliminarCuenta.setOnClickListener {
+            deleteUser()
+        }
 
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
@@ -62,6 +69,34 @@ class UserInfoFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun deleteUser() {
+        val idUser = arguments?.getString("idUser")
+
+        val url = "http://192.168.1.5/MatchaStock/Usuario/eliminar.php"
+        val queue = Volley.newRequestQueue(activity)
+
+        val stringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            Response.Listener<String> { response ->
+                // Eliminación exitosa, maneja la respuesta del servidor si es necesario
+                Toast.makeText(context, "Usuario eliminado exitosamente", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_userInfoFragment_to_signUpFragment)
+            },
+            Response.ErrorListener { error ->
+                // Error en la eliminación, maneja el error según sea necesario
+                Toast.makeText(context, "Error al eliminar usuario: $error", Toast.LENGTH_SHORT).show()
+            }) {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["idUser"] = idUser ?: ""
+                return params
+            }
+        }
+
+        queue.add(stringRequest)
     }
 
 }

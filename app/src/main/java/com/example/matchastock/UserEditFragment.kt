@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.matchastock.Controllers.UsuarioController
-import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentUserEditBinding
-import com.example.matchastock.databinding.FragmentUserInfoBinding
 import okhttp3.OkHttpClient
 
 class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
@@ -34,13 +32,22 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
 
     }
 
+    private fun limpiarCampos() {
+        with(binding) {
+            etName.text?.clear()
+            etApell.text?.clear()
+            etUsername.text?.clear()
+            etEmail.text?.clear()
+            etPassword.text?.clear()
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnActUser.setOnClickListener{
-            findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
-        }
         binding.btnActUser.setOnClickListener {
+            val idUser = binding.etIdUser.text.toString().toInt()
             val nombre = binding.etName.text.toString()
             val apellido = binding.etApell.text.toString()
             val username = binding.etUsername.text.toString()
@@ -65,7 +72,8 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
                 ).show()
                 return@setOnClickListener
             }
-            editUser(nombre, apellido, username, email, passwordUser)
+            limpiarCampos()
+            editUser(idUser, nombre, apellido, username, email, passwordUser)
         }
 
 
@@ -89,8 +97,8 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
         }
     }
 
-    private fun editUser(nombre: String, apellido: String, username: String, email: String, passwordUser: String) {
-        usuarioController.editarUsuario(nombre, apellido, username, email, passwordUser, this)
+    private fun editUser(idUser: Int, nombre: String, apellido: String, username: String, email: String, passwordUser: String) {
+        usuarioController.editarUsuario(idUser, nombre, apellido, username, email, passwordUser, this)
     }
 
     override fun onUsuarioEditadoExitoso() {
@@ -106,6 +114,11 @@ class UserEditFragment : Fragment(), UsuarioController.OnUsuarioEditListener {
         requireActivity().runOnUiThread {
             Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding
     }
 
 }
