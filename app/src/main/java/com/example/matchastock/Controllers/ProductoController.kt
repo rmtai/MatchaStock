@@ -47,6 +47,8 @@ class ProductoController(private val client: OkHttpClient) {
     }
 
     fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener) {
+
+       val mediaType = ""
         val imagenCodificada: String = Base64.encodeToString(producto.imagen, Base64.DEFAULT)
 
 
@@ -150,21 +152,23 @@ class ProductoController(private val client: OkHttpClient) {
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    val respuesta = response.body?.string()
-                    val jsonArray = JSONArray(respuesta)
+                    val respuesta = response.body!!.string()
+                    val jsonObject = JSONObject(respuesta)
+
+                    val jsonArray = jsonObject.getJSONArray("data")
 
                     val productos = mutableListOf<Product>()
 
                     for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
+                        val productoJson = jsonArray.getJSONObject(i)
 
-                        val idItem = jsonObject.getInt("idItem")
-                        val nombreProd = jsonObject.getString("nombreProd")
-                        val descripcionProd = jsonObject.getString("descripcionProd")
-                        val cantidadProd = jsonObject.getInt("cantidadProd")
-                        val estado = jsonObject.getInt("estado")
-                        val idUser = jsonObject.getInt("idUser")
-                        val imagenBase64 = jsonObject.optString("imagen")
+                        val idItem = productoJson.getInt("idItem")
+                        val nombreProd = productoJson.getString("nombreProd")
+                        val descripcionProd = productoJson.getString("descripcionProd")
+                        val cantidadProd = productoJson.getInt("cantidadProd")
+                        val estado = productoJson.getInt("estado")
+                        val idUser = productoJson.getInt("idUser")
+                        val imagenBase64 = productoJson.optString("imagen")
                         val imagen = if (imagenBase64.isNotEmpty()) decodeBase64(imagenBase64) else null
 
                         productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, imagen, estado, idUser))
