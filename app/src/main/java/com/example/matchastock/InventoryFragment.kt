@@ -42,12 +42,14 @@ class InventoryFragment : Fragment(), ProductoController.OnProductoObtenidoListe
         super.onViewCreated(view, savedInstanceState)
 
         val manager = LinearLayoutManager(requireContext())
-
-        adapter = ProductoAdapter(emptyList())
+        var nav = findNavController()
+        var lista = ProductoController(OkHttpClient()).mostrarProducto()
+        adapter = ProductoAdapter(lista, nav)
         binding.rvProd.layoutManager = manager
         binding.rvProd.adapter = adapter
 
-        productoController.mostrarTodosLosProductos(this)
+
+
 
 
         binding.bottomNav.setOnItemReselectedListener { item ->

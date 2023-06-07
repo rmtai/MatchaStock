@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.matchastock.Controllers.ProductoController
+import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Controllers.UsuarioController
 import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentNuevoBinding
@@ -33,20 +34,6 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
     private lateinit var session: SharedPreferences
     //private var idUser: Int? = null
 
-    private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if(result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val imageUri: Uri? = data?.data
-
-            if (imageUri != null) {
-                Glide.with(this)
-                    .load(imageUri)
-                    .into(binding.ivImg)
-            } else {
-                mostrarMensaje("Error al obtener la imagen seleccionada, vuelva a intentar o escoja otra imagen")
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,31 +55,11 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSelectImg.setOnClickListener{
-            seleccionarImagen()
-        }
+
 
         binding.btnGuardar.setOnClickListener {
             guardarProducto()
-            //mostrarMensaje("hace algo?")
-            /*val nombreProd = binding.etNombre.text.toString()
-            val descripcionProd = binding.etDescripcion.text.toString()
-            val cantidadProd = binding.etCantidad.text.toString().toInt()
 
-            if (nombreProd.isNotEmpty() && descripcionProd.isNotEmpty() && cantidadProd > 0 && imagenSeleccionada != null){
-                val stream = ByteArrayOutputStream()
-                imagenSeleccionada?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                val imagenByteArray = stream.toByteArray()
-
-                val idUser = obtenerIdUsuario()
-                if(idUser != null){
-                    val producto = Product(null, nombreProd, descripcionProd, cantidadProd, imagenByteArray, 1, idUser)
-                    productoController.guardarProducto(producto, this)
-                }else {
-                    mostrarMensaje("Error al obtener el ID del usuario")
-                }
-
-            }*/
         }
 
 
@@ -115,29 +82,18 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
         }
     }
 
-    private fun seleccionarImagen(){
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        selectImageLauncher.launch(intent)
-    }
 
-    private fun mostrarImagenSeleccionada(bitmap: Bitmap){
-        binding.ivImg.setImageBitmap(bitmap)
-    }
     private fun guardarProducto(){
-        mostrarMensaje("hace algo? tal vez aquí")
+        val sessionController = context?.let { SessionController.getInstance(it) }
         val nombreProd = binding.etNombre.text.toString()
         val descripcionProd = binding.etDescripcion.text.toString()
         val cantidadProd = binding.etCantidad.text.toString().toInt()
 
-        if (nombreProd.isNotEmpty() && descripcionProd.isNotEmpty() && cantidadProd > 0 && imagenSeleccionada != null){
-            val stream = ByteArrayOutputStream()
-            imagenSeleccionada?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val imagenByteArray = stream.toByteArray()
-
-            val idUser = obtenerIdUsuario()
+        if (nombreProd.isNotEmpty() && descripcionProd.isNotEmpty() && cantidadProd > 0 ){
+            val idUser = sessionController?.getId()?.toInt()
             if(idUser != null){
-                val producto = Product(null, nombreProd, descripcionProd, cantidadProd, imagenByteArray, 1, idUser)
-                productoController.guardarProducto(producto, this)
+                val producto = Product(null, nombreProd, descripcionProd, cantidadProd, 1, idUser)
+                productoController.agregarProducto(producto)
             }else {
                 mostrarMensaje("Error al obtener el ID del usuario")
             }
@@ -145,10 +101,7 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
         }
     }
 
-    private fun obtenerIdUsuario(): Int?{
-        val idUsuarioObtenido = session.getInt("idUser", -1)
-        return if (idUsuarioObtenido != -1) idUsuarioObtenido else null
-    }
+
 
     private fun mostrarMensaje(mensaje: String) {
         Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
@@ -159,9 +112,7 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
         binding.etNombre.text = null
         binding.etDescripcion.text = null
         binding.etCantidad.text = null
-        binding.ivImg.setImageBitmap(null)
-        imagenSeleccionada = null
-    }
+            }
 
     override fun onErrorGuardado(mensaje: String) {
         mostrarMensaje("Error al guardar el producto: $mensaje")

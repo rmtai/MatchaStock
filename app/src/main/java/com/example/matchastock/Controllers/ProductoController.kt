@@ -33,64 +33,95 @@ class ProductoController(private val client: OkHttpClient) {
 
 
     companion object {
-        private const val URL_API = "http://192.168.0.8/MatchaStock/Producto/"
+        private const val URL_API = "http://192.168.0.12/MatchaStock/Producto/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
         private const val PRODEL_URL = "${URL_API}getProd.php"
 
     }
-
-    fun decodeBase64(base64String: String): ByteArray {
-        val encodedBytes = android.util.Base64.decode(base64String, android.util.Base64.DEFAULT)
-        return encodedBytes
-    }
-
-    fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener) {
-
-       val mediaType = ""
-        val imagenCodificada: String = Base64.encodeToString(producto.imagen, Base64.DEFAULT)
+    fun agregarProducto(producto: Product) {
 
 
-        val formBody: FormBody = FormBody.Builder()
-            .add("nombreProd", producto.nombreProd)
-            .add("descripcionProd", producto.descripcionProd)
-            .add("cantidadProd", producto.cantidadProd.toString())
-            .add("imagen", imagenCodificada)
-            .add("idUser", producto.idUser.toString())
-            .build()
+        if (producto.nombreProd.isNullOrEmpty() || producto.descripcionProd.isNullOrEmpty() || producto.cantidadProd!! <= 0) {
+            println("Ingrese valores válidos para todos los campos del producto")
+            return
+        }
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        builder.addFormDataPart("nombreProd", producto.nombreProd)
+        builder.addFormDataPart("descripcionProd", producto.descripcionProd)
+        builder.addFormDataPart("cantidadProd", producto.cantidadProd.toString())
+        builder.addFormDataPart("idUser", producto.idUser.toString())
+
+
+        val requestBody = builder.build()
 
         val request: Request = Request.Builder()
             .url(INSERTAR_URL)
-            .post(formBody)
+            .post(requestBody)
             .build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                val errorMessage = "Error en la petición HTTP: ${e.message}"
-                listener.onErrorGuardado(errorMessage)
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object: Callback{
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful){
+                    val respuesta = response.body?.string()
+                    println(respuesta)
+                }
+                else {
+                    println("Error en la respuesta del servidor")
+                }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val respuesta = response.body?.string()
-                    val jsonResponse = JSONObject(respuesta)
-
-                    if (jsonResponse.getBoolean("success")) {
-                        listener.onProductoGuardadoExitosamente()
-                    } else {
-                        val mensaje = jsonResponse.getString("message")
-                        listener.onErrorGuardado(mensaje)
-                    }
-                } else {
-                    val error = "Error en la respuesta del servidor"
-                    listener.onErrorGuardado(error)
-                }
-
-                response.close()
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
             }
         })
     }
+
+    fun editarProducto(producto: Product) {
+
+        if (producto.nombreProd.isNullOrEmpty() || producto.descripcionProd.isNullOrEmpty() || producto.cantidadProd!! <= 0 ) {
+            println("Ingrese valores válidos para todos los campos del producto")
+            return
+        }
+
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        builder.addFormDataPart("idItem", producto.idItem.toString())
+        builder.addFormDataPart("nombreProd", producto.nombreProd)
+        builder.addFormDataPart("descripcionProd", producto.descripcionProd)
+        builder.addFormDataPart("cantidadProd", producto.cantidadProd.toString())
+        builder.addFormDataPart("estado", producto.estado.toString())
+        builder.addFormDataPart("idUser", producto.idUser.toString())
+
+
+        val requestBody = builder.build()
+
+        val request: Request = Request.Builder()
+            .url(EDITAR_URL)
+            .post(requestBody)
+            .build()
+
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object: Callback{
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful){
+                    val respuesta = response.body?.string()
+                    println(respuesta)
+                }
+                else {
+                    println("Error en la respuesta del servidor")
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
+            }
+        })
+    }
+
 
 
     fun mostrarProductosEliminados(): List<Product> = runBlocking {
@@ -118,8 +149,6 @@ class ProductoController(private val client: OkHttpClient) {
                     val cantidadProd = jsonObject.getInt("cantidadProd")
                     val estado = jsonObject.getInt("estado")
                     val idUser = jsonObject.getInt("idUser")
-                    val imagenBase64 = jsonObject.getString("imagen")
-                    val imagen = decodeBase64(imagenBase64)
 
                     productos.add(
                         Product(
@@ -127,7 +156,6 @@ class ProductoController(private val client: OkHttpClient) {
                             nombreProd,
                             descripcionProd,
                             cantidadProd,
-                            imagen,
                             estado,
                             idUser
                         )
@@ -139,7 +167,43 @@ class ProductoController(private val client: OkHttpClient) {
         productos
     }
 
-    fun mostrarTodosLosProductos(listener: OnProductoObtenidoListener) {
+    fun mostrarProducto(): List<Product> = runBlocking {
+        val productos = mutableListOf<Product>()
+
+        launch(Dispatchers.IO) {
+            val request = Request.Builder()
+                .url(MOSTRAR_URL)
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    throw IOException("Unexpected code $response")
+                }
+
+                val json = response.body!!.string()
+                val jsonArray = JSONArray(json)
+
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObject = jsonArray.getJSONObject(i)
+
+                    val idItem = jsonObject.getInt("idItem")
+                    val nombreProd = jsonObject.getString("nombreProd")
+                    val descripcionProd = jsonObject.getString("descripcionProd")
+                    val cantidadProd = jsonObject.getInt("cantidadProd")
+                    val estado = jsonObject.getInt("estado")
+                    val idUser = jsonObject.getInt("idUser")
+
+
+                    productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, estado, idUser))
+                }
+            }
+        }.join()
+
+        productos
+    }
+    fun mostrarTodosLosProductos() {
         val request = Request.Builder()
             .url(MOSTRAR_URL)
             .build()
@@ -147,37 +211,34 @@ class ProductoController(private val client: OkHttpClient) {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 val errorMessage = "Error en la petición HTTP: ${e.message}"
-                listener.onErrorObtenido(errorMessage)
+                println(errorMessage)
+
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    val respuesta = response.body!!.string()
-                    val jsonObject = JSONObject(respuesta)
-
-                    val jsonArray = jsonObject.getJSONArray("data")
+                    val respuesta = response.body?.string()
+                    val jsonArray = JSONArray(respuesta)
 
                     val productos = mutableListOf<Product>()
 
                     for (i in 0 until jsonArray.length()) {
-                        val productoJson = jsonArray.getJSONObject(i)
+                        val jsonObject = jsonArray.getJSONObject(i)
 
-                        val idItem = productoJson.getInt("idItem")
-                        val nombreProd = productoJson.getString("nombreProd")
-                        val descripcionProd = productoJson.getString("descripcionProd")
-                        val cantidadProd = productoJson.getInt("cantidadProd")
-                        val estado = productoJson.getInt("estado")
-                        val idUser = productoJson.getInt("idUser")
-                        val imagenBase64 = productoJson.optString("imagen")
-                        val imagen = if (imagenBase64.isNotEmpty()) decodeBase64(imagenBase64) else null
+                        val idItem = jsonObject.getInt("idItem")
+                        val nombreProd = jsonObject.getString("nombreProd")
+                        val descripcionProd = jsonObject.getString("descripcionProd")
+                        val cantidadProd = jsonObject.getInt("cantidadProd")
+                        val estado = jsonObject.getInt("estado")
+                        val idUser = jsonObject.getInt("idUser")
 
-                        productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, imagen, estado, idUser))
+                        productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, estado, idUser))
                     }
 
-                  listener.onProductoObtenido(productos)
+                  productos
                 } else {
                     val error = "Error en la respuesta del servidor"
-                    listener.onErrorObtenido(error)
+                    println(error)
                 }
 
                 response.close()

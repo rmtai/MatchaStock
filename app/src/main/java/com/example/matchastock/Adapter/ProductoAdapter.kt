@@ -1,10 +1,12 @@
 package com.example.matchastock.Adapter
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.matchastock.Entities.Product
@@ -12,8 +14,9 @@ import com.example.matchastock.R
 import com.example.matchastock.databinding.ItemProductoBinding
 
 
-class ProductoAdapter(private var productList: List<Product>):
+class ProductoAdapter(private var productList: List<Product>, private var controller:NavController):
     RecyclerView.Adapter<ProductoAdapter.ViewHolder>() {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoAdapter.ViewHolder {
@@ -43,6 +46,12 @@ class ProductoAdapter(private var productList: List<Product>):
             binding.tvProdName.text = productModel.nombreProd
             binding.tvDescProd.text = productModel.descripcionProd
             binding.tvCantProd.text = productModel.cantidadProd.toString()
+            binding.btnEditarProd.setOnClickListener{
+                var productoId = productModel.idItem.toString()
+                var bundle:Bundle?= Bundle()
+                bundle!!.putString("idProducto", productoId)
+                controller.navigate(R.id.action_inventoryFragment_to_editarProdFragment, bundle)
+            }
         }
 
     }

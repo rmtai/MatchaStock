@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivWave" />
 
     <TextView
+        android:id="@+id/tvNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-15dp"
@@ -41,6 +42,7 @@
         tools:text="@string/user_info" />
 
     <TextView
+        android:id="@+id/tvCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
