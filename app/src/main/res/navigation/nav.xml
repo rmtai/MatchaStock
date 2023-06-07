@@ -141,6 +141,9 @@
         <action
             android:id="@+id/action_inventoryFragment_to_userInfoFragment"
             app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_editarProdFragment"
+            app:destination="@id/editarProdFragment" />
     </fragment>
     <fragment
         android:id="@+id/eliminadoProdFragment"
@@ -159,5 +162,13 @@
         <action
             android:id="@+id/action_eliminadoProdFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarProdFragment"
+        android:name="com.example.matchastock.EditarProdFragment"
+        android:label="EditarProdFragment" >
+        <action
+            android:id="@+id/action_editarProdFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
     </fragment>
 </navigation>

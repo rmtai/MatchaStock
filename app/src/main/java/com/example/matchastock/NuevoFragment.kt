@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.matchastock.Controllers.ProductoController
+import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Controllers.UsuarioController
 import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentNuevoBinding
@@ -55,27 +56,10 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
         super.onViewCreated(view, savedInstanceState)
 
 
+
         binding.btnGuardar.setOnClickListener {
             guardarProducto()
-            //mostrarMensaje("hace algo?")
-            /*val nombreProd = binding.etNombre.text.toString()
-            val descripcionProd = binding.etDescripcion.text.toString()
-            val cantidadProd = binding.etCantidad.text.toString().toInt()
 
-            if (nombreProd.isNotEmpty() && descripcionProd.isNotEmpty() && cantidadProd > 0 && imagenSeleccionada != null){
-                val stream = ByteArrayOutputStream()
-                imagenSeleccionada?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                val imagenByteArray = stream.toByteArray()
-
-                val idUser = obtenerIdUsuario()
-                if(idUser != null){
-                    val producto = Product(null, nombreProd, descripcionProd, cantidadProd, imagenByteArray, 1, idUser)
-                    productoController.guardarProducto(producto, this)
-                }else {
-                    mostrarMensaje("Error al obtener el ID del usuario")
-                }
-
-            }*/
         }
 
 
@@ -100,16 +84,16 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
 
 
     private fun guardarProducto(){
-        //mostrarMensaje("hace algo? tal vez aquí")
+        val sessionController = context?.let { SessionController.getInstance(it) }
         val nombreProd = binding.etNombre.text.toString()
         val descripcionProd = binding.etDescripcion.text.toString()
         val cantidadProd = binding.etCantidad.text.toString().toInt()
 
         if (nombreProd.isNotEmpty() && descripcionProd.isNotEmpty() && cantidadProd > 0 ){
-            val idUser = obtenerIdUsuario()
+            val idUser = sessionController?.getId()?.toInt()
             if(idUser != null){
                 val producto = Product(null, nombreProd, descripcionProd, cantidadProd, 1, idUser)
-                productoController.guardarProducto(producto, this)
+                productoController.agregarProducto(producto)
             }else {
                 mostrarMensaje("Error al obtener el ID del usuario")
             }
@@ -117,10 +101,7 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
         }
     }
 
-    private fun obtenerIdUsuario(): Int?{
-        val idUsuarioObtenido = session.getInt("idUser", -1)
-        return if (idUsuarioObtenido != -1) idUsuarioObtenido else null
-    }
+
 
     private fun mostrarMensaje(mensaje: String) {
         Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
