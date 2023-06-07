@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matchastock.Adapter.ProductoAdapter
 import com.example.matchastock.Controllers.ProductoController
+import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentInventoryBinding
 import com.example.matchastock.databinding.FragmentLoginBinding
@@ -41,15 +42,21 @@ class InventoryFragment : Fragment(), ProductoController.OnProductoObtenidoListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sessionController = context?.let { SessionController.getInstance(it) }
         val manager = LinearLayoutManager(requireContext())
         var nav = findNavController()
         var lista = ProductoController(OkHttpClient()).mostrarProducto()
-        adapter = ProductoAdapter(lista, nav)
+
+        var listaAux = mutableListOf<Product>()
+        lista.forEach {
+            if(it.idUser == sessionController?.getId()?.toInt()){
+                listaAux.add(it)
+            }
+        }
+
+        adapter = ProductoAdapter(listaAux, nav)
         binding.rvProd.layoutManager = manager
         binding.rvProd.adapter = adapter
-
-
-
 
 
         binding.bottomNav.setOnItemReselectedListener { item ->
