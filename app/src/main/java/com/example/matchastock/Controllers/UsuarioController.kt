@@ -1,7 +1,10 @@
 package com.example.matchastock.Controllers
 
+import android.util.Log
 import com.example.matchastock.Entities.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import okhttp3.*
@@ -26,7 +29,7 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.0.11/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.0.12/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
@@ -98,36 +101,57 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    suspend fun mostrarUsuario(): List<User> = withContext(Dispatchers.IO) {
+    fun mostrarUsuario(): List<User> = runBlocking {
         val usuarios = mutableListOf<User>()
 
-        val request = Request.Builder()
-            .url(MOSTRAR_URL)
-            .build()
 
-        val response = client.newCall(request).await()
 
-        if (!response.isSuccessful) {
-            throw IOException("Unexpected code $response")
-        }
+        launch(Dispatchers.IO) {
+            val request = Request.Builder()
+                .url(MOSTRAR_URL)
+                .build()
 
-        val json = response.body!!.string()
-        val jsonArray = JSONArray(json)
+            val client = OkHttpClient()
 
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(i)
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    throw IOException("Unexpected code $response")
+                }
 
-            val idUsuario = jsonObject.getInt("idUser")
-            val nombre = jsonObject.getString("nombre")
-            val apellido = jsonObject.getString("apellido")
-            val usuario = jsonObject.getString("username")
-            val password = jsonObject.getString("passwordUser")
-            val email = jsonObject.getString("email")
+                val json = response.body!!.string()
+                val jsonArray = JSONArray(json)
 
-            usuarios.add(User(idUsuario, nombre, apellido, usuario, password, email))
-        }
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObject = jsonArray.getJSONObject(i)
+
+                    val idUser = jsonObject.getInt("idUser")
+                    val nombre = jsonObject.getString("nombre")
+                    val apellido = jsonObject.getString("apellido")
+                    val username = jsonObject.getString("username")
+                    val passwordUser = jsonObject.getString("passwordUser")
+                    val email = jsonObject.getString("email")
+
+
+                    usuarios.add(User(idUser, nombre, apellido, username, passwordUser, email))
+                }
+            }
+        }.join()
 
         usuarios
+    }
+
+    fun validarUsuario(usuario: String, clave: String):User?{
+        val lista = mostrarUsuario()
+        var usuarioAux = User(0, "", " ", "", "", "")
+        lista.forEach {
+            if(it.username.trim() == usuario.trim() && it.passwordUser.trim() == clave.trim()){
+                usuarioAux = it
+            }
+        }
+        if(usuarioAux.idUser == null){
+            Log.d("Sesion", "sesion fallida")
+        }
+        return usuarioAux
     }
 
     fun login(username: String, passwordUser: String, listener: OnUsuarioLoginListener) {
@@ -184,6 +208,7 @@ class UsuarioController(private val client: OkHttpClient) {
             }
         })
     }
+
 
 
 

@@ -7,7 +7,6 @@ data class Product(
     @SerializedName("nombreProd") val nombreProd: String,
     @SerializedName("descripcionProd") val descripcionProd: String,
     @SerializedName("cantidadProd") val cantidadProd: Int?,
-    @SerializedName("imagen") val imagen : ByteArray?,
     @SerializedName("estado") val estado: Int,
     @SerializedName("idUser") val idUser: Int?
 

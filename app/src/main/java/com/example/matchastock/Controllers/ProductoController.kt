@@ -33,7 +33,7 @@ class ProductoController(private val client: OkHttpClient) {
 
 
     companion object {
-        private const val URL_API = "http://192.168.0.8/MatchaStock/Producto/"
+        private const val URL_API = "http://192.168.0.12/MatchaStock/Producto/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
@@ -41,20 +41,12 @@ class ProductoController(private val client: OkHttpClient) {
 
     }
 
-    fun decodeBase64(base64String: String): ByteArray {
-        val encodedBytes = android.util.Base64.decode(base64String, android.util.Base64.DEFAULT)
-        return encodedBytes
-    }
-
-    fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener) {
-        val imagenCodificada: String = Base64.encodeToString(producto.imagen, Base64.DEFAULT)
-
+     fun guardarProducto(producto: Product, listener: OnProductoGuardadoListener) {
 
         val formBody: FormBody = FormBody.Builder()
             .add("nombreProd", producto.nombreProd)
             .add("descripcionProd", producto.descripcionProd)
             .add("cantidadProd", producto.cantidadProd.toString())
-            .add("imagen", imagenCodificada)
             .add("idUser", producto.idUser.toString())
             .build()
 
@@ -116,8 +108,6 @@ class ProductoController(private val client: OkHttpClient) {
                     val cantidadProd = jsonObject.getInt("cantidadProd")
                     val estado = jsonObject.getInt("estado")
                     val idUser = jsonObject.getInt("idUser")
-                    val imagenBase64 = jsonObject.getString("imagen")
-                    val imagen = decodeBase64(imagenBase64)
 
                     productos.add(
                         Product(
@@ -125,7 +115,6 @@ class ProductoController(private val client: OkHttpClient) {
                             nombreProd,
                             descripcionProd,
                             cantidadProd,
-                            imagen,
                             estado,
                             idUser
                         )
@@ -164,10 +153,8 @@ class ProductoController(private val client: OkHttpClient) {
                         val cantidadProd = jsonObject.getInt("cantidadProd")
                         val estado = jsonObject.getInt("estado")
                         val idUser = jsonObject.getInt("idUser")
-                        val imagenBase64 = jsonObject.optString("imagen")
-                        val imagen = if (imagenBase64.isNotEmpty()) decodeBase64(imagenBase64) else null
 
-                        productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, imagen, estado, idUser))
+                        productos.add(Product(idItem, nombreProd, descripcionProd, cantidadProd, estado, idUser))
                     }
 
                   listener.onProductoObtenido(productos)
