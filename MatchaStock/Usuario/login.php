@@ -21,6 +21,7 @@ if (isset($_POST['username']) && isset($_POST['passwordUser'])) {
             );
 
             $_SESSION['username'] = $username;
+            //$_SESSION['idUser'] = $idUser;
         } else {
             $response = array(
                 'success' => false,

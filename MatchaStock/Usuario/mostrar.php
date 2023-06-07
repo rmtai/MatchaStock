@@ -1,20 +1,22 @@
 <?php
-if($_SERVER["REQUEST_METHOD"]=="GET"){
-    require_once 'conexion.php';
-    $my_query = "select * from usuario ";
-    $result = $mysql->query($my_query);
-    if($mysql->affected_rows>0){
-        $json = "{\"data\": [";
-            while($row = $result->fetch_assoc()){
-                $json = $json.json_encode($row);
-                $json=$json.",";
-            }
-            $json=substr(trim($json),0,-1);
-            $json = $json."]}";
-    }
-    echo $json;
-    $result->close();
-    $mysql->close();
+require_once 'conexion.php';
+
+if ($mysql->connect_error) {
+    die("Conexion fallida: " . $mysql->connect_error);
 }
 
+// Función para mostrar los registros de una tabla
+function mostrar($usuario) {
+    global $mysql;
+    $sql = "SELECT * FROM usuario";
+    $result = $mysql->query($sql);
+    $rows = array();
+    while($r = mysqli_fetch_assoc($result)) {
+        $rows[] = $r;
+    }
+    
+    return json_encode($rows);
+}
+
+echo mostrar('usuario');
 ?>
