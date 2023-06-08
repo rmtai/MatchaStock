@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.matchastock.Controllers.SessionController
+import com.example.matchastock.Controllers.UsuarioController
+import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentPswEditBinding
 import com.example.matchastock.databinding.FragmentUserEditBinding
+import okhttp3.OkHttpClient
 
 class PswEditFragment : Fragment() {
     private lateinit var binding : FragmentPswEditBinding
+    var usuarioController = UsuarioController(OkHttpClient())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +37,7 @@ class PswEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnActPsw.setOnClickListener{
-            findNavController().navigate(R.id.action_pswEditFragment_to_userInfoFragment2)
+            validarPsw()
         }
 
         binding.btnCancelPsw.setOnClickListener{
@@ -55,5 +60,37 @@ class PswEditFragment : Fragment() {
             }
         }
     }
+    fun validarPsw(){
 
+        val currentPassword = binding.etActPsw.text.toString()
+        val newPassword = binding.etNuevaPsw.text.toString()
+        val confirmPassword = binding.etConfPsw.text.toString()
+
+        // Verificar si la contrase単a actual es correcta
+        val lista = usuarioController.mostrarUsuario()
+
+        val sessionController = context?.let { SessionController.getInstance(it) }
+        val usuarioActual = lista.find { it.idUser == sessionController?.getId()?.toInt()}
+
+        var usuarioAux = User(0, "", " ", "", "", "")
+        lista.forEach {
+            if(it.idUser == sessionController?.getId()?.toInt()){
+                usuarioAux = it
+            }
+        }
+        if(usuarioAux.passwordUser == currentPassword){
+            if(newPassword == confirmPassword){
+                sessionController?.getId()?.toInt()?.let {
+                    usuarioController.editarUsuario(it, newPassword)
+                    Toast.makeText(context, "Contrase単a actualizada correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(context, "Contrase単a nueva no coincide", Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            Toast.makeText(context, "Contrase単a actual es incorrecta", Toast.LENGTH_SHORT).show()
+        }
+
+        findNavController().navigate(R.id.action_pswEditFragment_to_userInfoFragment2)
+    }
 }
