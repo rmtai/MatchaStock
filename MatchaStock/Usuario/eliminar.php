@@ -1,20 +1,17 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        require_once 'conexion.php';
-        $idUser = $_POST["idUser"];
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+    require_once 'conexion.php';
+    $idUser = $_GET["idUser"];
+    $my_query = "DELETE from usuario where idUser = $idUser";
+    $result = $mysql -> query($my_query);
 
-        $stmt = $mysql->prepare("DELETE FROM usuario WHERE idUser = ?");
-        $stmt->bind_param("i", $idUser);
-
-        if($stmt->execute()){
-            echo 'Registro Eliminado con Exito';
-        } else {
-            echo 'Error al eliminar el registro';
-        }
-
-        $stmt->close();
-        $mysql->close();
-    } else {
-        echo 'Unknown error';
+    if($result == true){
+        echo "Usuario eliminado satisfactoriamente...";
+    }else{
+        echo "Error al eliminar usuario...";
     }
+
+}else{
+    echo"Error desconocido";
+}
 ?>

@@ -74,7 +74,7 @@ class UserInfoFragment : Fragment() {
     private fun deleteUser() {
         val idUser = arguments?.getString("idUser")
 
-        val url = "http://192.168.1.5/MatchaStock/Usuario/eliminar.php"
+        val url = "http://192.168.1.26/MatchaStock/Usuario/eliminar.php"
         val queue = Volley.newRequestQueue(activity)
 
         val stringRequest = object : StringRequest(

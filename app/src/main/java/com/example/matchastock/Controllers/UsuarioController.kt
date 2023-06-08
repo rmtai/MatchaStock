@@ -32,7 +32,7 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.1.5/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.1.26/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
@@ -75,6 +75,7 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     fun editarUsuario(idUser: Int, nombre: String, apellido: String, username: String, email: String, passwordUser: String, listener: OnUsuarioEditListener) {
+        val urlAPI = "http://192.168.1.26/MatchaStock/Usuario/editar.php"
         val formBody = FormBody.Builder()
             .add("idUser", idUser.toString())
             .add("nombre", nombre)
@@ -85,9 +86,10 @@ class UsuarioController(private val client: OkHttpClient) {
             .build()
 
         val request: Request = Request.Builder()
-            .url(EDITAR_URL)
+            .url(urlAPI)
             .post(formBody)
             .build()
+        val client = OkHttpClient()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
