@@ -54,10 +54,6 @@ class UserInfoFragment : Fragment() {
         binding.tvNombre.setText("${usuarioAux.nombre} ${usuarioAux.apellido}")
         binding.tvCorreo.setText("${usuarioAux.email}")
 
-        binding.cvEditarPerfil.setOnClickListener{
-            findNavController().navigate(R.id.action_userInfoFragment_to_userEditFragment)
-        }
-
         binding.cvCambiarPsw.setOnClickListener{
             findNavController().navigate(R.id.action_userInfoFragment_to_pswEditFragment)
         }

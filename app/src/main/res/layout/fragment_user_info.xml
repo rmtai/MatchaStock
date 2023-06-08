@@ -49,7 +49,8 @@
         android:gravity="center"
         android:text="@string/correo"
         android:textColor="@color/second_color"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:layout_marginBottom="30dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="300dp"
@@ -79,25 +80,6 @@
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvEditarPerfil"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            app:cardBackgroundColor="@color/card_bg"
-            app:cardCornerRadius="10dp">
-
-            <TextView
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:gravity="center"
-                android:text="@string/editar_perfil"
-                android:textColor="@color/second_color"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvCambiarPsw"
