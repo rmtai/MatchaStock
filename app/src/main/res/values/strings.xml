@@ -45,6 +45,15 @@
     <string name="editar_prod">Editar producto</string>
     <string name="nuevo_producto">Nuevo producto</string>
     <string name="add_prod">Añadir nuevo producto</string>
+    <string name="guardar">Guardar</string>
+    <string name="buscar">Buscar</string>
+    <string name="btnB">Botón buscar</string>
+    <string name="prodel">Productos eliminados del inventario</string>
+
+
+
+
+
 
 
 </resources>

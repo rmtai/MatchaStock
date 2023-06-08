@@ -30,38 +30,61 @@ class EditarProdFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentEditarProdBinding.inflate(inflater, container, false)
-        var lista = ProductoController(OkHttpClient()).mostrarProducto()
-        var prodAux = Product(1, "", "", 5, 2, 8)
-        lista.forEach {
-            if(it.idItem.toString() == id){
-                prodAux = it
+        return binding.root
+    }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            var lista = ProductoController(OkHttpClient()).mostrarProducto()
+            var prodAux = Product(1, "", "", 5, 2, 8)
+            lista.forEach {
+                if(it.idItem.toString() == id){
+                    prodAux = it
+                }
+
+            }
+            binding.etNombre.setText(prodAux.nombreProd)
+            binding.etDescripcion.setText(prodAux.descripcionProd)
+            binding.etCantidad.setText(prodAux.cantidadProd.toString())
+
+            val sessionController = context?.let { SessionController.getInstance(it) }
+            binding.btnEditarProd.setOnClickListener {
+                var nombre = binding.etNombre.text.toString()
+                var descripcion = binding.etDescripcion.text.toString()
+                var cantidad = binding.etCantidad.text.toString().toInt()
+                var producto = Product(
+                    id.toInt(),
+                    nombre,
+                    descripcion,
+                    cantidad,
+                    2,
+                    sessionController?.getId()?.toInt()
+                )
+                productoController.editarProducto(producto)
+                findNavController().navigate(R.id.action_editarProdFragment_to_inventoryFragment)
+            }
+
+            binding.bottomNav.setOnItemReselectedListener { item ->
+                when (item.itemId) {
+                    R.id.btnHome -> {
+                        findNavController().navigate(R.id.action_editarProdFragment_to_homeFragment)
+                    }
+
+                    R.id.btnPerfil -> {
+                        findNavController().navigate(R.id.action_editarProdFragment_to_userInfoFragment)
+                    }
+
+                    R.id.btnInventario -> {
+                        findNavController().navigate(R.id.action_editarProdFragment_to_inventoryFragment)
+                    }
+
+                }
+
             }
 
         }
-        binding.etNombre.setText(prodAux.nombreProd)
-        binding.etDescripcion.setText(prodAux.descripcionProd)
-        binding.etCantidad.setText(prodAux.cantidadProd.toString())
 
-        val sessionController = context?.let { SessionController.getInstance(it) }
-        binding.btnEditarProd.setOnClickListener {
-            var nombre = binding.etNombre.text.toString()
-            var descripcion = binding.etDescripcion.text.toString()
-            var cantidad = binding.etCantidad.text.toString().toInt()
-            var producto = Product(
-                id.toInt(),
-                nombre,
-                descripcion,
-                cantidad,
-                2,
-                sessionController?.getId()?.toInt()
-            )
-            productoController.editarProducto(producto)
-            findNavController().navigate(R.id.action_editarProdFragment_to_inventoryFragment)
-        }
-
-
-        return binding.root
-    }
 
 
 

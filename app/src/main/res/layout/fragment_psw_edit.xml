@@ -21,9 +21,9 @@
 
     <ImageView
         android:id="@+id/ivMatcha"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_marginStart="112dp"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="132dp"
         android:layout_marginTop="-60dp"
         android:contentDescription="@string/app_name"
         android:src="@mipmap/titlelessmatcha"
