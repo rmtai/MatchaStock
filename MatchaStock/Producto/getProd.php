@@ -3,23 +3,25 @@
 require_once 'conexion.php';
 
 // Realizar la consulta para obtener los datos con estado 3
-$query = "SELECT * FROM producto WHERE estado = 3";
+$query = "SELECT idItem, nombreProd, descripcionProd, cantidadProd, estado, idUser  FROM producto WHERE estado = 3";
 $result = $mysql->query($query);
 
-// Verificar si hay resultados
-if ($result && $result->num_rows > 0) {
-    // Crear un array para almacenar los datos
-    $data = array();
-
-    // Iterar sobre los resultados y agregarlos al array
+if ($result->num_rows >= 0) {
+    $productos = array();
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $producto = array();
+        $producto['idItem'] = $row['idItem'];
+        $producto['nombreProd'] = $row['nombreProd'];
+        $producto['descripcionProd'] = $row['descripcionProd'];
+        $producto['cantidadProd'] = $row['cantidadProd'];
+        $producto['estado'] = $row['estado'];
+        $producto['idUser'] = $row['idUser'];
+        array_push($productos, $producto);
     }
-
-    // Devolver los datos en formato JSON
-    echo json_encode($data);
+    header('Content-Type: application/json');
+    echo json_encode($productos);
 } else {
-    echo 'No hay datos disponibles';
+    echo "No se encontraron productos";
 }
-
+$mysql->close();
 ?>
