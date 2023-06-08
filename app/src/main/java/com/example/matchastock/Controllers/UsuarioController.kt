@@ -34,6 +34,7 @@ class UsuarioController(private val client: OkHttpClient) {
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
         private const val LOGIN_URL = "${URL_API}login.php"
+        private const val ELIMINAR_URL = "${URL_API}eliminar.php"
 
     }
 
@@ -71,35 +72,35 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(nombre: String, apellido: String, username: String, passwordUser: String) {
+    fun editarUsuario(idUser: Int, passwordUser: String){
+
         val formBody = FormBody.Builder()
-            .add("nombre", nombre)
-            .add("apellido", apellido)
-            .add("username", username)
+            .add("idUser", idUser.toString())
             .add("passwordUser", passwordUser)
             .build()
-
-        val request: Request = Request.Builder()
+        val request = Request.Builder()
             .url(EDITAR_URL)
             .post(formBody)
             .build()
+        val client = OkHttpClient()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("Error en la petición HTTP: ${e.message}")
-            }
-
+        client.newCall(request).enqueue(object: Callback{
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful){
                     val respuesta = response.body?.string()
                     println(respuesta)
-                    response.close()
-                } else {
+                }
+                else {
                     println("Error en la respuesta del servidor")
                 }
             }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
+            }
         })
     }
+
 
     fun mostrarUsuario(): List<User> = runBlocking {
         val usuarios = mutableListOf<User>()
@@ -152,6 +153,37 @@ class UsuarioController(private val client: OkHttpClient) {
             Log.d("Sesion", "sesion fallida")
         }
         return usuarioAux
+    }
+
+    fun eliminarUsuario(usuario:User){
+
+
+
+        val formBody = FormBody.Builder()
+            .add("idUser", usuario.idUser.toString())
+            .build()
+        val request = Request.Builder()
+            .url(ELIMINAR_URL)
+            .post(formBody)
+            .build()
+        val client = OkHttpClient()
+
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful){
+                    val respuesta = response.body?.string()
+                    println(respuesta)
+                }
+                else {
+                    println("Error en la respuesta del servidor")
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
+            }
+        })
     }
 
     fun login(username: String, passwordUser: String, listener: OnUsuarioLoginListener) {

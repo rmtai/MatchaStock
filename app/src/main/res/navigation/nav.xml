@@ -63,6 +63,12 @@
         <action
             android:id="@+id/action_userInfoFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_loginFragment3"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/userEditFragment"
