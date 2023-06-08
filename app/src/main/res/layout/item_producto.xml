@@ -2,9 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="200dp"
-    android:layout_marginTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_gravity="center"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/card_bg"
@@ -14,20 +16,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="20dp">
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="-12dp"
-            android:src="@mipmap/titlelessmatcha" />
+        android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
             android:orientation="vertical">
 
             <TextView
@@ -35,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/second_color"
-                android:textSize="24sp"
+                android:textSize="36sp"
                 android:textStyle="bold"
                 tools:text="Producto" />
 
@@ -44,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/second_color"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 tools:text="Descripcion del producto" />
 
             <TextView
@@ -60,15 +57,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="-26dp"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnEditarProd"
                     android:layout_width="48dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_height="48dp"
-                    android:layout_marginBottom="18dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/edit_24"
                     android:contentDescription="@string/editar_prod" />
 

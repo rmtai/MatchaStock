@@ -170,5 +170,14 @@
         <action
             android:id="@+id/action_editarProdFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_editarProdFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_editarProdFragment_to_inventoryFragment2"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_editarProdFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
     </fragment>
 </navigation>

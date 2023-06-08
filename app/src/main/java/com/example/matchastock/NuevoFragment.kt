@@ -1,30 +1,20 @@
 package com.example.matchastock
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.matchastock.Controllers.ProductoController
 import com.example.matchastock.Controllers.SessionController
-import com.example.matchastock.Controllers.UsuarioController
 import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentNuevoBinding
 import okhttp3.OkHttpClient
-import java.io.ByteArrayOutputStream
 
 class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener {
 
@@ -59,6 +49,7 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
 
         binding.btnGuardar.setOnClickListener {
             guardarProducto()
+            findNavController().navigate(R.id.action_nuevoFragment_to_inventoryFragment)
 
         }
 
@@ -108,7 +99,7 @@ class NuevoFragment : Fragment(), ProductoController.OnProductoGuardadoListener 
     }
     override fun onProductoGuardadoExitosamente() {
         mostrarMensaje("Producto guardado exitosamente")
-        // Restablecer los campos y la imagen seleccionada después de guardar el producto
+        // Restablecer los campos
         binding.etNombre.text = null
         binding.etDescripcion.text = null
         binding.etCantidad.text = null

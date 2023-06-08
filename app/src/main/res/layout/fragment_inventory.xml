@@ -7,26 +7,31 @@
     android:background="@color/bg_color"
     tools:context=".InventoryFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/etBuscar"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="-75dp"
+        android:layout_marginTop="10dp"
+        android:hint="Buscar"
+        android:textColorHint="@color/search_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/svBuscarProd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/search_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/btnBuscar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="@string/buscar"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_search"
+        android:backgroundTint="@color/btn_color"
+        app:layout_constraintStart_toEndOf="@id/etBuscar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/btnB" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProd"
@@ -37,7 +42,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svBuscarProd">
+        app:layout_constraintTop_toBottomOf="@id/etBuscar">
 
     </androidx.recyclerview.widget.RecyclerView>
 

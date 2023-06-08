@@ -45,13 +45,14 @@ class UserEditFragment : Fragment() {
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
                 R.id.btnHome -> {
-                    Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_userEditFragment_to_homeFragment)
+
                 }
                 R.id.btnPerfil -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_userInfoFragment)
+                    findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment2)
                 }
                 R.id.btnInventario -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_inventoryFragment)
+                    findNavController().navigate(R.id.action_userEditFragment_to_inventoryFragment)
                 }
 
             }
