@@ -14,14 +14,13 @@ import com.example.matchastock.Controllers.ProductoController
 import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentInventoryBinding
-import com.example.matchastock.databinding.FragmentLoginBinding
 import okhttp3.OkHttpClient
 
 class InventoryFragment : Fragment(), ProductoController.OnProductoObtenidoListener {
 
     private lateinit var binding: FragmentInventoryBinding
     private lateinit var productoController: ProductoController
-    private lateinit var adapter : ProductoAdapter
+    private lateinit var adapter: ProductoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +48,39 @@ class InventoryFragment : Fragment(), ProductoController.OnProductoObtenidoListe
 
         var listaAux = mutableListOf<Product>()
         lista.forEach {
-            if(it.idUser == sessionController?.getId()?.toInt()){
+            if (it.idUser == sessionController?.getId()?.toInt() && it.estado != 3) {
                 listaAux.add(it)
             }
         }
 
-        adapter = ProductoAdapter(listaAux, nav)
+        adapter = context?.let { ProductoAdapter(listaAux, nav, it) }!!
         binding.rvProd.layoutManager = manager
         binding.rvProd.adapter = adapter
+        binding.btnBuscar.setOnClickListener {
+            val nombre = binding.etBuscar.text.toString()
+            val lista = ProductoController(OkHttpClient()).mostrarProducto()
+
+            val listaAux = mutableListOf<Product>()
+            lista.forEach {
+                if (it.idUser == sessionController?.getId()?.toInt() && it.estado != 3) {
+                    if (it.nombreProd == nombre) {
+                        listaAux.add(it)
+                    }
+                }
+
+            }
+            if (listaAux.isNotEmpty()) {
+                adapter.updateData(listaAux)
+            } else {
+                lista.forEach {
+                    if (it.idUser == sessionController?.getId()?.toInt() && it.estado != 3) {
+                        listaAux.add(it)
+                    }
+                }
+                adapter.updateData(listaAux)
+            }
+
+        }
 
 
         binding.bottomNav.setOnItemReselectedListener { item ->

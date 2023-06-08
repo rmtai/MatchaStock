@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matchastock.Adapter.ProdEliminadoAdapter
-import com.example.matchastock.Adapter.ProductoAdapter
 import com.example.matchastock.Controllers.ProductoController
+import com.example.matchastock.Controllers.SessionController
+import com.example.matchastock.Entities.Product
 import com.example.matchastock.databinding.FragmentEliminadoProdBinding
 import okhttp3.OkHttpClient
 
@@ -36,27 +36,39 @@ class EliminadoProdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sessionController = context?.let { SessionController.getInstance(it) }
         val manager = LinearLayoutManager(requireContext())
+        var nav = findNavController()
+        var lista = ProductoController(OkHttpClient()).mostrarProducto()
+        var idU = sessionController?.getId()?.toInt()
 
-        adapter = ProdEliminadoAdapter(emptyList())
+        var listaAux = mutableListOf<Product>()
+        lista.forEach {
+            if (it.estado == 3) {
+                if (it.idUser == idU) {
+                    listaAux.add(it)
+
+                }
+
+            }
+        }
+
+
+        adapter = ProdEliminadoAdapter(listaAux, nav)
         binding.rvEliminadoProd.layoutManager = manager
         binding.rvEliminadoProd.adapter = adapter
 
 
-        // Obtener y mostrar productos eliminados
-        val productosEliminados = productoController.mostrarProductosEliminados()
-        adapter.updateData(productosEliminados)
-        adapter.notifyDataSetChanged()
-
-
         binding.bottomNav.setOnItemReselectedListener { item ->
-            when (item.itemId){
+            when (item.itemId) {
                 R.id.btnHome -> {
                     findNavController().navigate(R.id.action_eliminadoProdFragment_to_homeFragment)
                 }
+
                 R.id.btnPerfil -> {
                     findNavController().navigate(R.id.action_eliminadoProdFragment_to_userInfoFragment)
                 }
+
                 R.id.btnInventario -> {
                     findNavController().navigate(R.id.action_eliminadoProdFragment_to_inventoryFragment)
                 }
