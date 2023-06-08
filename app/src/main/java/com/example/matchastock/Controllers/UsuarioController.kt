@@ -72,32 +72,31 @@ class UsuarioController(private val client: OkHttpClient) {
         })
     }
 
-    fun editarUsuario(nombre: String, apellido: String, username: String, passwordUser: String) {
+    fun editarUsuario(idUser: Int, passwordUser: String){
+
         val formBody = FormBody.Builder()
-            .add("nombre", nombre)
-            .add("apellido", apellido)
-            .add("username", username)
+            .add("idUser", idUser.toString())
             .add("passwordUser", passwordUser)
             .build()
-
-        val request: Request = Request.Builder()
+        val request = Request.Builder()
             .url(EDITAR_URL)
             .post(formBody)
             .build()
+        val client = OkHttpClient()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("Error en la petición HTTP: ${e.message}")
-            }
-
+        client.newCall(request).enqueue(object: Callback{
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful){
                     val respuesta = response.body?.string()
                     println(respuesta)
-                    response.close()
-                } else {
+                }
+                else {
                     println("Error en la respuesta del servidor")
                 }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
             }
         })
     }

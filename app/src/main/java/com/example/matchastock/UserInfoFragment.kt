@@ -69,10 +69,6 @@ class UserInfoFragment : Fragment() {
 
         }
 
-        binding.cvEliminarCuenta.setOnClickListener{
-            findNavController().navigate(R.id.action_userInfoFragment_to_signUpFragment)
-        }
-
         binding.bottomNav.setOnItemReselectedListener { item ->
             when (item.itemId){
                 R.id.btnHome -> {
@@ -98,7 +94,7 @@ class UserInfoFragment : Fragment() {
                 usuarioController.eliminarUsuario(usuarioActual)
                 // Realizar las acciones necesarias después de eliminar la cuenta, como navegar a la pantalla de inicio de sesión
                 sessionController?.clearSession()
-                findNavController().navigate(R.id.action_userInfoFragment_to_loginFragment2)
+                findNavController().navigate(R.id.action_userInfoFragment_to_loginFragment)
             } else {
                 Toast.makeText(context, "Error: Usuario no encontrado", Toast.LENGTH_SHORT).show()
             }
