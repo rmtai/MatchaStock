@@ -46,9 +46,6 @@
         android:label="fragment_user_info"
         tools:layout="@layout/fragment_user_info" >
         <action
-            android:id="@+id/action_userInfoFragment_to_userEditFragment"
-            app:destination="@id/userEditFragment" />
-        <action
             android:id="@+id/action_userInfoFragment_to_pswEditFragment"
             app:destination="@id/pswEditFragment" />
         <action
@@ -66,24 +63,6 @@
         <action
             android:id="@+id/action_userInfoFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userEditFragment"
-        android:name="com.example.matchastock.UserEditFragment"
-        android:label="fragment_user_edit"
-        tools:layout="@layout/fragment_user_edit" >
-        <action
-            android:id="@+id/action_userEditFragment_to_userInfoFragment2"
-            app:destination="@id/userInfoFragment" />
-        <action
-            android:id="@+id/action_userEditFragment_to_userInfoFragment"
-            app:destination="@id/userInfoFragment" />
-        <action
-            android:id="@+id/action_userEditFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_userEditFragment_to_inventoryFragment"
-            app:destination="@id/inventoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/pswEditFragment"

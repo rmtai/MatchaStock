@@ -11,7 +11,6 @@ import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Controllers.UsuarioController
 import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentPswEditBinding
-import com.example.matchastock.databinding.FragmentUserEditBinding
 import okhttp3.OkHttpClient
 
 class PswEditFragment : Fragment() {
@@ -82,15 +81,16 @@ class PswEditFragment : Fragment() {
             if(newPassword == confirmPassword){
                 sessionController?.getId()?.toInt()?.let {
                     usuarioController.editarUsuario(it, newPassword)
-                    Toast.makeText(context, "Contrase単a actualizada correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_pswEditFragment_to_userInfoFragment2)
+
                 }
             }else{
-                Toast.makeText(context, "Contrase単a nueva no coincide", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Contraseña nueva no coincide", Toast.LENGTH_SHORT).show()
             }
         }else{
-            Toast.makeText(context, "Contrase単a actual es incorrecta", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Contraseña actual es incorrecta", Toast.LENGTH_SHORT).show()
         }
 
-        findNavController().navigate(R.id.action_pswEditFragment_to_userInfoFragment2)
     }
 }

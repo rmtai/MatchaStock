@@ -29,11 +29,10 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.1.21/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.0.8/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
-        private const val LOGIN_URL = "${URL_API}login.php"
         private const val ELIMINAR_URL = "${URL_API}eliminar.php"
 
     }
@@ -181,87 +180,6 @@ class UsuarioController(private val client: OkHttpClient) {
             Log.d("Sesion", "sesion fallida")
         }
         return usuarioAux
-    }
-
-    fun login(username: String, passwordUser: String, listener: OnUsuarioLoginListener) {
-
-        val formBody = FormBody.Builder()
-            .add("username", username)
-            .add("passwordUser", passwordUser)
-            .build()
-
-        val request: Request = Request.Builder()
-            .url(LOGIN_URL)
-            .post(formBody)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                // Error en la petición HTTP
-                val errorMessage = "Error en la petición HTTP: ${e.message}"
-                println(errorMessage)
-                listener.onErrorLogin(errorMessage)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body?.string()
-
-                if (response.isSuccessful && responseData != null) {
-                    try {
-                        val jsonResponse = JSONObject(responseData)
-                        val success = jsonResponse.getBoolean("success")
-                        val message = jsonResponse.getString("message")
-
-                        if (success) {
-                            // Inicio de sesión exitoso
-                            listener.onUsuarioLoginExitoso()
-                        } else {
-                            // Contraseña incorrecta o usuario no encontrado
-                            println("Error de inicio de sesión: $message")
-                            listener.onErrorLogin(message)
-                        }
-                    } catch (e: JSONException) {
-                        // Error al analizar el JSON
-                        val errorMessage = "Error al analizar la respuesta del servidor: ${e.message}"
-                        println(errorMessage)
-                        listener.onErrorLogin(errorMessage)
-                    }
-                } else {
-                    // Error en la respuesta del servidor
-                    val errorMessage = "Error en la respuesta del servidor"
-                    println(errorMessage)
-                    listener.onErrorLogin(errorMessage)
-                }
-
-                response.close()
-            }
-        })
-    }
-
-
-
-
-    // Función de extensión para realizar una llamada asíncrona y obtener una respuesta
-    private suspend fun Call.await(): Response {
-        return suspendCancellableCoroutine { continuation ->
-            enqueue(object : Callback {
-                override fun onResponse(call: Call, response: Response) {
-                    continuation.resumeWith(Result.success(response))
-                }
-
-                override fun onFailure(call: Call, e: IOException) {
-                    continuation.resumeWith(Result.failure(e))
-                }
-            })
-
-            continuation.invokeOnCancellation {
-                try {
-                    cancel()
-                } catch (ex: Throwable) {
-                    // Ignorar la cancelación fallida
-                }
-            }
-        }
     }
 
 }

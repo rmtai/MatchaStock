@@ -7,18 +7,30 @@
     android:background="@color/bg_color"
     tools:context=".InventoryFragment">
 
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/ilBuscar"
+    android:layout_marginStart="-75dp"
+    android:layout_marginTop="10dp"
+    android:textColor="@color/second_color"
+    android:textColorHint="@color/search_view"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:autofillHints="Buscar producto"
+    android:inputType="text"
+    app:boxStrokeColor="@color/second_color">
 
-    <EditText
-        android:id="@+id/etBuscar"
-        android:layout_width="300dp"
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-75dp"
-        android:layout_marginTop="10dp"
-        android:hint="Buscar"
+        android:id="@+id/etBuscar"
+        android:textColor="@color/second_color"
         android:textColorHint="@color/search_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="@string/buscar"
+        />
+</com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/btnBuscar"
@@ -26,10 +38,10 @@
         android:layout_height="48dp"
         android:text="@string/buscar"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="14dp"
         android:src="@drawable/ic_search"
         android:backgroundTint="@color/btn_color"
-        app:layout_constraintStart_toEndOf="@id/etBuscar"
+        app:layout_constraintStart_toEndOf="@id/ilBuscar"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/btnB" />
 
@@ -37,12 +49,12 @@
         android:id="@+id/rvProd"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="9dp"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etBuscar">
+        app:layout_constraintTop_toBottomOf="@id/ilBuscar">
 
     </androidx.recyclerview.widget.RecyclerView>
 

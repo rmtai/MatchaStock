@@ -132,20 +132,20 @@
 
             <Button
                 android:id="@+id/btnActPsw"
-                android:layout_width="170dp"
+                android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:layout_gravity="left"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/btn_color"
                 android:text="@string/btn_actualizar"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btnCancelPsw"
-                android:layout_width="170dp"
+                android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:backgroundTint="@color/btn_color"
                 android:text="@string/btn_cancelar"
                 android:textSize="20sp" />
