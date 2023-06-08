@@ -29,11 +29,12 @@ class UsuarioController(private val client: OkHttpClient) {
     }
 
     companion object {
-        private const val URL_API = "http://192.168.0.12/MatchaStock/Usuario/"
+        private const val URL_API = "http://192.168.1.21/MatchaStock/Usuario/"
         private const val INSERTAR_URL = "${URL_API}insertar.php"
         private const val EDITAR_URL = "${URL_API}editar.php"
         private const val MOSTRAR_URL = "${URL_API}mostrar.php"
         private const val LOGIN_URL = "${URL_API}login.php"
+        private const val ELIMINAR_URL = "${URL_API}eliminar.php"
 
     }
 
@@ -138,6 +139,35 @@ class UsuarioController(private val client: OkHttpClient) {
         }.join()
 
         usuarios
+    }
+
+    fun eliminarUsuario(usuario:User){
+
+        val formBody = FormBody.Builder()
+            .add("idUser", usuario.idUser.toString())
+            .build()
+        val request = Request.Builder()
+            .url(ELIMINAR_URL)
+            .post(formBody)
+            .build()
+        val client = OkHttpClient()
+
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful){
+                    val respuesta = response.body?.string()
+                    println(respuesta)
+                }
+                else {
+                    println("Error en la respuesta del servidor")
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Error en la petición HTTP: ${e.message}")
+            }
+        })
     }
 
     fun validarUsuario(usuario: String, clave: String):User?{

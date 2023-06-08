@@ -1,6 +1,8 @@
 package com.example.matchastock
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.matchastock.Controllers.SessionController
 import com.example.matchastock.Controllers.UsuarioController
+import com.example.matchastock.Entities.Product
 import com.example.matchastock.Entities.User
 import com.example.matchastock.databinding.FragmentSignUpBinding
 import com.example.matchastock.databinding.FragmentUserInfoBinding
@@ -16,8 +19,10 @@ import okhttp3.OkHttpClient
 
 class UserInfoFragment : Fragment() {
 
+    private lateinit var userList: List<User>
     private lateinit var binding : FragmentUserInfoBinding
-
+    var usuarioController = UsuarioController(OkHttpClient())
+    var usuario = User(0, "", " ", "", "", "")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +43,7 @@ class UserInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sessionController = context?.let { SessionController.getInstance(it) }
-        val usuarioController = UsuarioController(OkHttpClient())
+        //val usuarioController = UsuarioController(OkHttpClient())
         val lista = usuarioController.mostrarUsuario()
         var usuarioAux = User(0, "", " ", "", "", "")
         lista.forEach {
@@ -84,9 +89,22 @@ class UserInfoFragment : Fragment() {
 
             }
         }
+        binding.cvEliminarCuenta.setOnClickListener{
+            val lista = usuarioController.mostrarUsuario()
+            val usuarioActual = lista.find { it.idUser == sessionController?.getId()?.toInt() }
+
+            if (usuarioActual != null) {
+                // Eliminar el usuario
+                usuarioController.eliminarUsuario(usuarioActual)
+                // Realizar las acciones necesarias después de eliminar la cuenta, como navegar a la pantalla de inicio de sesión
+                sessionController?.clearSession()
+                findNavController().navigate(R.id.action_userInfoFragment_to_loginFragment2)
+            } else {
+                Toast.makeText(context, "Error: Usuario no encontrado", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
-
 
     override fun onResume() {
         super.onResume()
