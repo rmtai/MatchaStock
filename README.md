@@ -15,3 +15,4 @@
 
 - `Funcionalidad 1`: Tener un inventario compacto para todos los usuarios que necesitan tener a la mano una aplicación que les permita gestionar los productos que tienen disponibles o que van a retirar del inventario.
 -  `Funcionalidad 2`: Administrar los productos existentes o que se van a retirar de manera compacta.
+-  `Funcionalidad 3`: Poder visualizar todos los productos que fueron eliminados del inventario.
